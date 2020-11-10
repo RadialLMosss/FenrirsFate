@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f6a054e7fdf7e3419574bd2f9c82877, type: 3}
+  m_Name: LevelTemplate - Ruins
+  m_EditorClassIdentifier: 
+  firstSectionsPB: {fileID: 7819270341306572241, guid: 6309e7a83fc7e1e4a9cb023dc4003fc2, type: 3}
+  lastSectionsPB: {fileID: 7819270341306572241, guid: bf1617e9deaf52f45b80a9033d847933, type: 3}
+  combatSectionsPB: {fileID: 7819270341306572241, guid: 41f44294c7f310746955ab3c824cf7d0, type: 3}
+  shopSectionsPB: {fileID: 0}
+  bossSectionsPB: {fileID: 0}
+  puzzleSectionsPB: {fileID: 0}
