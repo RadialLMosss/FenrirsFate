@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cadb71d659ad9a47a26c85dab00e426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wall: {fileID: 5516113802386975458}
+  isConnected: 0
 --- !u!1 &3779037655677282203
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,7 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cadb71d659ad9a47a26c85dab00e426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wall: {fileID: 104182466694318452}
+  isConnected: 0
 --- !u!54 &3774059574098924999
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -791,7 +791,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cadb71d659ad9a47a26c85dab00e426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wall: {fileID: 8624069425162236218}
+  isConnected: 0
 --- !u!1 &7117909396999142953
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,6 +938,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 979558dc2c3d7fc41a8e17df04cec49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sectionSensors: []
+  sectionTemplates: []
+  isNotRandomized: 1
 --- !u!1 &8624069425162236218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1142,7 +1145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cadb71d659ad9a47a26c85dab00e426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wall: {fileID: 286372534592479112}
+  isConnected: 0
 --- !u!54 &5588667382344162843
 Rigidbody:
   m_ObjectHideFlags: 0

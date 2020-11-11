@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LevelTemplate - ", menuName = "Level Template - Biome")]
-public class LevelTemplate : ScriptableObject
+public class LevelTemplate : MonoBehaviour
 {
-    [Header("Madatory:")]
-    public GameObject firstSectionsPB;
-    public GameObject lastSectionsPB;
-    
-    [Header("Optional:")]
-    public GameObject combatSectionsPB;
-    public GameObject shopSectionsPB;
-    public GameObject bossSectionsPB;
-    public GameObject puzzleSectionsPB;
+    public GameObject[] children;
+    private void OnEnable()
+    {
+        if(children != null)
+        {
+            children[Random.Range(0, children.Length)].gameObject.SetActive(true);
+        }
+    }
 }

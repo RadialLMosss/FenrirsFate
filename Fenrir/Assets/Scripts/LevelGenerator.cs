@@ -11,9 +11,9 @@ public class LevelGenerator : MonoBehaviour
     enum SectionDirection { east, north, south}
     SectionDirection sectionDirection;
 
-    [SerializeField] LevelTemplate[] levelTemplates = null; // 1 for each 'biome'
+    [SerializeField] LevelBiome[] levelTemplates = null; // 1 for each 'biome'
 
-    private LevelTemplate currentLevelTemplate;
+    private LevelBiome currentLevelTemplate;
     private GameObject currentLevelPB;
 
     private GameObject currentFirstSection; // first section made
