@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f6a054e7fdf7e3419574bd2f9c82877, type: 3}
   m_Name: LevelTemplate - Ruins
   m_EditorClassIdentifier: 
-  firstSectionsPB: {fileID: 7819270341306572241, guid: 6309e7a83fc7e1e4a9cb023dc4003fc2, type: 3}
-  lastSectionsPB: {fileID: 7819270341306572241, guid: bf1617e9deaf52f45b80a9033d847933, type: 3}
+  firstSectionsPB: {fileID: 7819270341306572241, guid: 0c4181a3a91769541b00dbb9b63b9ad4, type: 3}
+  lastSectionsPB: {fileID: 7819270341306572241, guid: d42566e3c1f60d64cb25ad2f6ca1a5f2, type: 3}
   combatSectionsPB: {fileID: 7819270341306572241, guid: 3a856ce391431e14bb23609f93241944, type: 3}
   shopSectionsPB: {fileID: 0}
   bossSectionsPB: {fileID: 0}
