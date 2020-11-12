@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Text levelCountText = null;
     [SerializeField] Text levelTypeText = null;
-    [HideInInspector] public int levelCount = 0;
+    [HideInInspector] public static int levelCount = 0;
     [SerializeField] LevelGenerator levelGenerator = null;
 
     private void Start()

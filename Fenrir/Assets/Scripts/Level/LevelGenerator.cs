@@ -246,20 +246,24 @@ public class LevelGenerator : MonoBehaviour
 
     void SpawnEnemies()
     {
-        int levelIndex;
+        int levelIndex = 1;
         for (int i = 0; i < enemyGroups[enemyGroupIndex].enemies.Length; i++)
         {
-            if(i < 4)
+            if(i < 3)
+            {
+                levelIndex = 1;
+            }
+            if(i>=3 && i < 5)
             {
                 levelIndex = 2;
             }
-            else if(i >= 4 &&  i < 6)
+            else if(i > 4 &&  i < 7)
             {
-                levelIndex = 4;
+                levelIndex = 3;
             }
-            else
+            else if(i >= 7)
             {
-                levelIndex = 6;
+                levelIndex = 5;
             }
 
             Vector3 point;

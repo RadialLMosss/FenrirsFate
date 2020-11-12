@@ -12,8 +12,8 @@ public class Player : MonoBehaviour
 
     GameManager gameManager;
 
-    [HideInInspector] public int furia;
-    [HideInInspector] public int crystals;
+    [HideInInspector] public static int furia;
+    [HideInInspector] public static int crystals;
 
     public Text furyText;
     public Text crystalText;
@@ -79,10 +79,12 @@ public class Player : MonoBehaviour
     {
         if(other.CompareTag("Finish"))
         {
+            other.gameObject.SetActive(false);
             gameManager.NextLevel(1);
         }
         else if(other.CompareTag("Finish2"))
         {
+            other.gameObject.SetActive(false);
             gameManager.NextLevel(2);
         }
         else if(other.CompareTag("Damage"))
@@ -91,15 +93,24 @@ public class Player : MonoBehaviour
         }
         else if(other.CompareTag("Crystal"))
         {
+            Destroy(other.gameObject);
             crystals += 10;
             crystalText.text = "CRISTAIS = " + crystals.ToString();
-            Destroy(other.gameObject);
         }
         else if(other.CompareTag("SkillTreePoint"))
         {
             skillTreePanel.SetActive(true);
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("SkillTreePoint"))
+        {
+            skillTreePanel.SetActive(false);
+        }
+    }
+
     public LayerMask enemyLayer;
     public GameObject attackVol;
     public GameObject skillTreePanel;
@@ -107,7 +118,7 @@ public class Player : MonoBehaviour
     public void Attack()
     {
         attackVol.SetActive(true);
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5,  enemyLayer);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 6,  enemyLayer);
         foreach (var hitCollider in hitColliders)
         {
             hitCollider.GetComponent<Enemy>().EnemyDeath();
@@ -116,7 +127,7 @@ public class Player : MonoBehaviour
     }
     IEnumerator DisableAttackVol()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         attackVol.SetActive(false);
     }
 
@@ -126,11 +137,17 @@ public class Player : MonoBehaviour
         furyText.text = "FÚRIA = " + furia.ToString();
     }
 
+    public void Losefury(int lose)
+    {
+        furia -= lose;
+        furyText.text = "FÚRIA = " + furia.ToString();
+    }
+
     void PlayerDeath()
     {
-        // não perder fury currency nem as habilidades já adquiridas
         crystals = 0;
-        gameManager.levelCount = 0;
+        crystalText.text = "CRISTAIS = " + crystals.ToString();
+        GameManager.levelCount = 0;
         gameManager.NextLevel(1);
     }
 }
