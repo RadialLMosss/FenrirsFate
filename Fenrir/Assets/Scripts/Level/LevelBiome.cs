@@ -14,4 +14,5 @@ public class LevelBiome : ScriptableObject
     public GameObject shopSectionsPB;
     public GameObject bossSectionsPB;
     public GameObject puzzleSectionsPB;
+    public GameObject startSectionsPB; //access to skill tree
 }

@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 
 public class LevelGenerator : MonoBehaviour
 {
-    public enum LevelType { combat, puzzle, shop, boss }
+    public enum LevelType { start, combat, puzzle, shop, boss }
     public LevelType levelType;
+
+    [HideInInspector] public int enemyGroupIndex; //each number represents a different group of enemies (types && quantity)
+    public EnemyGroup[] enemyGroups;
+    private List<GameObject> enemiesSpawned = new List<GameObject>();
 
     enum SectionDirection { east, north, south}
     SectionDirection sectionDirection;
@@ -21,16 +26,14 @@ public class LevelGenerator : MonoBehaviour
     private GameObject currentLastSection; // last section made (with door to next room)
     private GameObject currentNormalSection;
 
-    private int sectionsCount;
+    [HideInInspector] public int sectionsCount;
     private int sectionsMade;
     private List<LevelSection> levelSections = new List<LevelSection>();
 
     [SerializeField] private NavMeshSurface navMeshParent = null;
+    public Transform playerTransform;
 
-    private void Start()
-    {
-        StartGenerator();
-    }
+    public Image levelTransitionScreen;
 
     private void Update()
     {
@@ -46,6 +49,7 @@ public class LevelGenerator : MonoBehaviour
 
     public void StartGenerator()
     {
+        levelTransitionScreen.gameObject.SetActive(true);
         ResetGenerator();
 
         currentLevelTemplate = levelTemplates[Random.Range(0, levelTemplates.Length)];
@@ -55,13 +59,17 @@ public class LevelGenerator : MonoBehaviour
         switch(levelType)
         {
             case LevelType.combat:
-                sectionsCount = Random.Range(5, 10);
                 currentNormalSection = currentLevelTemplate.combatSectionsPB;
                 break;
 
             case LevelType.puzzle:
                 sectionsCount = Random.Range(3, 6);
                 currentNormalSection = currentLevelTemplate.puzzleSectionsPB;
+                break;
+
+            case LevelType.start:
+                sectionsCount = 3;
+                currentNormalSection = currentLevelTemplate.startSectionsPB;
                 break;
 
             case LevelType.shop:
@@ -189,8 +197,11 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    private void ResetGenerator()
+    public void ResetGenerator()
     {
+        // ficar instanciando e destruindo não é uma boa ideia, depois melhorar isso!
+           //   -> Talvez usar Addressables ou tentar limpar GarbageCollector de outra forma
+
         sectionsMade = 0;
         transform.position = Vector3.zero;
         foreach (LevelSection section in levelSections)
@@ -198,7 +209,14 @@ public class LevelGenerator : MonoBehaviour
             Destroy(section.gameObject);
         }
         levelSections.Clear();
+
+        foreach (GameObject enemie in enemiesSpawned)
+        {
+            Destroy(enemie);
+        }
+        enemiesSpawned.Clear();
     }
+
 
     private void GenerateLevelSections()
     {
@@ -213,5 +231,60 @@ public class LevelGenerator : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         navMeshParent.BuildNavMesh();
+        if(levelType == LevelType.combat)
+        {
+            SpawnEnemies();
+        }
+        ResetPlayerPosition();
+    }
+
+    private void ResetPlayerPosition()
+    {
+        playerTransform.position = new Vector3(levelSections[0].transform.position.x, 1, levelSections[0].transform.position.z);
+        levelTransitionScreen.gameObject.SetActive(false);
+    }
+
+    void SpawnEnemies()
+    {
+        int levelIndex;
+        for (int i = 0; i < enemyGroups[enemyGroupIndex].enemies.Length; i++)
+        {
+            if(i < 4)
+            {
+                levelIndex = 2;
+            }
+            else if(i >= 4 &&  i < 6)
+            {
+                levelIndex = 4;
+            }
+            else
+            {
+                levelIndex = 6;
+            }
+
+            Vector3 point;
+            if (RandomPoint(levelSections[levelIndex].transform.position, range, out point))
+            {
+                GameObject enemie = Instantiate(enemyGroups[enemyGroupIndex].enemies[i], point, Quaternion.identity);
+                enemiesSpawned.Add(enemie);
+            }
+        }
+    }
+
+    private float range = 10.0f;
+    bool RandomPoint(Vector3 center, float range, out Vector3 result)
+    {
+        for (int i = 0; i < 30; i++)
+        {
+            Vector3 randomPoint = center + Random.insideUnitSphere * range;
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+            {
+                result = hit.position;
+                return true;
+            }
+        }
+        result = Vector3.zero;
+        return false;
     }
 }
