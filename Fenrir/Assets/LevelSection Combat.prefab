@@ -2244,7 +2244,7 @@ GameObject:
   - component: {fileID: 7246105651525715835}
   m_Layer: 0
   m_Name: NorthSensor
-  m_TagString: Finish
+  m_TagString: SectionSensor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -4636,7 +4636,7 @@ GameObject:
   - component: {fileID: 3317045988654228799}
   m_Layer: 0
   m_Name: SouthSensor
-  m_TagString: Finish
+  m_TagString: SectionSensor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6196,7 +6196,7 @@ GameObject:
   - component: {fileID: 1107116130898051756}
   m_Layer: 0
   m_Name: WestSensor
-  m_TagString: Finish
+  m_TagString: SectionSensor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6319,7 +6319,7 @@ GameObject:
   - component: {fileID: 4992569980688178724}
   m_Layer: 0
   m_Name: EastSensor
-  m_TagString: Finish
+  m_TagString: SectionSensor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

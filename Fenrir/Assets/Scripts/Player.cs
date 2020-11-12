@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
 
     Vector3 forward, right;
 
+    GameManager gameManager;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -17,6 +19,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         forward = Camera.main.transform.forward;
         forward.y = 0;
         forward = Vector3.Normalize(forward);
@@ -49,5 +52,17 @@ public class Player : MonoBehaviour
 
         transform.position += rightMovement;
         transform.position += upMovement;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Finish"))
+        {
+            gameManager.NextLevel(1);
+        }
+        else if(other.CompareTag("Finish2"))
+        {
+            gameManager.NextLevel(2);
+        }
     }
 }

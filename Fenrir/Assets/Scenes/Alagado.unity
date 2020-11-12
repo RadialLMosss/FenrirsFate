@@ -759,31 +759,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
-  m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
-  m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
-  m_BlendUpdateMethod: 1
-  m_DefaultBlend:
-    m_Style: 1
-    m_Time: 2
-    m_CustomCurve:
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
-  m_OutputCamera: {fileID: 1687258584}
-  m_CameraCutEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 0
-  m_CameraActivatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 0
-  mNextFrameId: 1
 --- !u!20 &1687258584
 Camera:
   m_ObjectHideFlags: 0

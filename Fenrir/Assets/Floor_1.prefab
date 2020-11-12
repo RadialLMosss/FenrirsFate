@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 7319092472541619714}
   m_Layer: 0
   m_Name: S
-  m_TagString: Respawn
+  m_TagString: SensorWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 4634510023212141681}
   m_Layer: 0
   m_Name: W
-  m_TagString: Respawn
+  m_TagString: SensorWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -581,7 +581,7 @@ GameObject:
   - component: {fileID: 8754665199449370755}
   m_Layer: 0
   m_Name: N
-  m_TagString: Respawn
+  m_TagString: SensorWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -656,7 +656,7 @@ GameObject:
   - component: {fileID: 6298819148859160482}
   m_Layer: 0
   m_Name: E
-  m_TagString: Respawn
+  m_TagString: SensorWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

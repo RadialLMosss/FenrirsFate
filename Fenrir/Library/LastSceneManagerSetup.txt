@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Alagado.unity
+- path: Assets/Scenes/InitLoadScene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

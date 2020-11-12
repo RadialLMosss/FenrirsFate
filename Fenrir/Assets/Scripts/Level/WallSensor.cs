@@ -8,7 +8,7 @@ public class WallSensor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Respawn"))
+        if (other.CompareTag("SensorWall"))
         {
             wall.SetActive(false);
         }

@@ -32,7 +32,19 @@ public class LevelGenerator : MonoBehaviour
         StartGenerator();
     }
 
-    void StartGenerator()
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.U))
+        {
+            ResetGenerator();
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            StartGenerator();
+        }
+    }
+
+    public void StartGenerator()
     {
         ResetGenerator();
 

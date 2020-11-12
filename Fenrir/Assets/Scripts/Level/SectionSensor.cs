@@ -12,7 +12,7 @@ public class SectionSensor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Finish"))
+        if(other.CompareTag("SectionSensor"))
         {
             sectionWall.SetActive(false);
             isConnected = true;
