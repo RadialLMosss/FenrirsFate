@@ -2,18 +2,24 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - CamFollow
+    - Enemy
+    - EnemyGroup
+    - GameManager
     - LevelBiome
     - LevelBlock
     - LevelGenerator
     - LevelSection
     - LevelTemplate
+    - LoadSceneButton
+    - LoadingSceneManager
+    - NextLevelPortal
     - Player
     - SectionSensor
+    - SkillTreeManager
+    - StoryIntroManager
     - WallSensor
     NavMeshComponents.dll:
     - UnityEngine.AI.NavMeshSurface
-    NavMeshComponentsEditor.dll:
-    - UnityEditor.AI.NavMeshAssetManager
     Unity.RenderPipelines.Core.Runtime.dll:
     - UnityEngine.Rendering.UI.DebugUIHandlerBitField
     - UnityEngine.Rendering.UI.DebugUIHandlerButton
@@ -46,19 +52,27 @@ ScriptsOnlyBuild:
     - UnityEditor.Rendering.Universal.UniversalProjectSettings
     Unity.RenderPipelines.Universal.Runtime.dll:
     - UnityEngine.Rendering.Universal.Bloom
+    - UnityEngine.Rendering.Universal.ChannelMixer
+    - UnityEngine.Rendering.Universal.ColorAdjustments
     - UnityEngine.Rendering.Universal.ForwardRendererData
+    - UnityEngine.Rendering.Universal.LiftGammaGain
     - UnityEngine.Rendering.Universal.PostProcessData
-    - UnityEngine.Rendering.Universal.Tonemapping
+    - UnityEngine.Rendering.Universal.ShadowsMidtonesHighlights
     - UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
     - UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset
     - UnityEngine.Rendering.Universal.Vignette
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    Unity.ShaderGraph.Editor.dll:
+    - UnityEditor.Graphing.GraphObject
+    - UnityEditor.ShaderGraph.Drawing.MaterialGraphEditWindow
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
     UnityEngine.UI.dll:
+    - UnityEngine.EventSystems.EventSystem
+    - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.ContentSizeFitter
@@ -67,13 +81,14 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Image
     - UnityEngine.UI.LayoutElement
     - UnityEngine.UI.Mask
+    - UnityEngine.UI.Outline
     - UnityEngine.UI.ScrollRect
     - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
   sceneClasses:
-    Assets/Scenes/Alagado.unity:
+    Assets/Scenes/GameScene.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -105,11 +120,175 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11908}
+      Script: {instanceID: 11918}
     - Class: 114
-      Script: {instanceID: 11910}
+      Script: {instanceID: 11920}
     - Class: 114
-      Script: {instanceID: 11912}
+      Script: {instanceID: 11926}
+    - Class: 114
+      Script: {instanceID: 12012}
+    - Class: 114
+      Script: {instanceID: 12248}
+    - Class: 114
+      Script: {instanceID: 12382}
+    - Class: 114
+      Script: {instanceID: 12542}
+    - Class: 114
+      Script: {instanceID: 12912}
+    - Class: 114
+      Script: {instanceID: 13088}
+    - Class: 114
+      Script: {instanceID: 13144}
+    - Class: 114
+      Script: {instanceID: 13146}
+    - Class: 114
+      Script: {instanceID: 13408}
+    - Class: 114
+      Script: {instanceID: 13958}
+    - Class: 114
+      Script: {instanceID: 13986}
+    - Class: 114
+      Script: {instanceID: 14012}
+    - Class: 114
+      Script: {instanceID: 14052}
+    - Class: 114
+      Script: {instanceID: 14524}
+    - Class: 114
+      Script: {instanceID: 14592}
+    - Class: 114
+      Script: {instanceID: 14796}
+    - Class: 114
+      Script: {instanceID: 14824}
+    - Class: 114
+      Script: {instanceID: 14860}
+    - Class: 114
+      Script: {instanceID: 15014}
+    - Class: 114
+      Script: {instanceID: 15074}
+    - Class: 114
+      Script: {instanceID: 15106}
+    - Class: 114
+      Script: {instanceID: 15322}
+    - Class: 114
+      Script: {instanceID: 15402}
+    - Class: 114
+      Script: {instanceID: 15498}
+    - Class: 114
+      Script: {instanceID: 15522}
+    - Class: 114
+      Script: {instanceID: 15538}
+    - Class: 114
+      Script: {instanceID: 15600}
+    - Class: 114
+      Script: {instanceID: 15656}
+    - Class: 114
+      Script: {instanceID: 15790}
+    - Class: 114
+      Script: {instanceID: 24318}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 135
+      Script: {instanceID: 0}
+    - Class: 136
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 195
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/LoadingScene.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11918}
+    - Class: 114
+      Script: {instanceID: 11920}
+    - Class: 114
+      Script: {instanceID: 11926}
+    - Class: 114
+      Script: {instanceID: 12382}
+    - Class: 114
+      Script: {instanceID: 12912}
+    - Class: 114
+      Script: {instanceID: 13144}
+    - Class: 114
+      Script: {instanceID: 14572}
+    - Class: 114
+      Script: {instanceID: 15538}
+    - Class: 114
+      Script: {instanceID: 15656}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/PostPTest.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 23
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 33
+      Script: {instanceID: 0}
+    - Class: 43
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
+    - Class: 64
+      Script: {instanceID: 0}
+    - Class: 65
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
     - Class: 114
       Script: {instanceID: 11914}
     - Class: 114
@@ -119,106 +298,102 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11920}
     - Class: 114
-      Script: {instanceID: 12006}
+      Script: {instanceID: 11922}
     - Class: 114
-      Script: {instanceID: 12074}
+      Script: {instanceID: 11924}
     - Class: 114
-      Script: {instanceID: 12188}
+      Script: {instanceID: 11926}
     - Class: 114
-      Script: {instanceID: 12210}
+      Script: {instanceID: 12012}
     - Class: 114
-      Script: {instanceID: 12242}
+      Script: {instanceID: 12080}
     - Class: 114
-      Script: {instanceID: 12376}
+      Script: {instanceID: 12194}
     - Class: 114
-      Script: {instanceID: 12416}
+      Script: {instanceID: 12216}
     - Class: 114
-      Script: {instanceID: 12592}
+      Script: {instanceID: 12248}
     - Class: 114
-      Script: {instanceID: 12902}
+      Script: {instanceID: 12382}
     - Class: 114
-      Script: {instanceID: 12948}
+      Script: {instanceID: 12422}
     - Class: 114
-      Script: {instanceID: 13008}
+      Script: {instanceID: 12600}
     - Class: 114
-      Script: {instanceID: 13248}
+      Script: {instanceID: 12912}
     - Class: 114
-      Script: {instanceID: 13472}
+      Script: {instanceID: 12958}
     - Class: 114
-      Script: {instanceID: 13514}
+      Script: {instanceID: 13018}
     - Class: 114
-      Script: {instanceID: 13576}
+      Script: {instanceID: 13088}
     - Class: 114
-      Script: {instanceID: 13684}
+      Script: {instanceID: 13146}
     - Class: 114
-      Script: {instanceID: 13942}
+      Script: {instanceID: 13262}
     - Class: 114
-      Script: {instanceID: 13970}
+      Script: {instanceID: 13488}
     - Class: 114
-      Script: {instanceID: 13998}
+      Script: {instanceID: 13530}
     - Class: 114
-      Script: {instanceID: 14292}
+      Script: {instanceID: 13592}
     - Class: 114
-      Script: {instanceID: 14352}
+      Script: {instanceID: 13700}
     - Class: 114
-      Script: {instanceID: 14372}
+      Script: {instanceID: 13958}
     - Class: 114
-      Script: {instanceID: 14494}
+      Script: {instanceID: 13986}
     - Class: 114
-      Script: {instanceID: 14508}
+      Script: {instanceID: 14012}
     - Class: 114
-      Script: {instanceID: 14532}
+      Script: {instanceID: 14014}
     - Class: 114
-      Script: {instanceID: 14540}
+      Script: {instanceID: 14308}
     - Class: 114
-      Script: {instanceID: 14586}
+      Script: {instanceID: 14368}
     - Class: 114
-      Script: {instanceID: 14806}
+      Script: {instanceID: 14388}
     - Class: 114
-      Script: {instanceID: 14852}
+      Script: {instanceID: 14510}
     - Class: 114
-      Script: {instanceID: 14922}
+      Script: {instanceID: 14548}
     - Class: 114
-      Script: {instanceID: 14994}
+      Script: {instanceID: 14556}
     - Class: 114
-      Script: {instanceID: 15054}
+      Script: {instanceID: 14592}
     - Class: 114
-      Script: {instanceID: 15170}
+      Script: {instanceID: 14796}
     - Class: 114
-      Script: {instanceID: 15302}
+      Script: {instanceID: 14872}
     - Class: 114
-      Script: {instanceID: 15354}
+      Script: {instanceID: 14942}
     - Class: 114
-      Script: {instanceID: 15382}
+      Script: {instanceID: 15106}
     - Class: 114
-      Script: {instanceID: 15402}
+      Script: {instanceID: 15190}
     - Class: 114
-      Script: {instanceID: 15500}
+      Script: {instanceID: 15374}
     - Class: 114
-      Script: {instanceID: 15578}
+      Script: {instanceID: 15422}
     - Class: 114
       Script: {instanceID: 15600}
     - Class: 114
-      Script: {instanceID: 15602}
+      Script: {instanceID: 15624}
     - Class: 114
-      Script: {instanceID: 15656}
+      Script: {instanceID: 15626}
     - Class: 114
-      Script: {instanceID: 15766}
+      Script: {instanceID: 15680}
     - Class: 114
-      Script: {instanceID: 15784}
+      Script: {instanceID: 15790}
     - Class: 114
-      Script: {instanceID: 15792}
+      Script: {instanceID: 15808}
     - Class: 114
-      Script: {instanceID: 120120}
+      Script: {instanceID: 15816}
     - Class: 114
-      Script: {instanceID: 126088}
-    - Class: 114
-      Script: {instanceID: 127190}
+      Script: {instanceID: 24318}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
-      Script: {instanceID: 0}
-    - Class: 135
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -233,6 +408,61 @@ ScriptsOnlyBuild:
     - Class: 224
       Script: {instanceID: 0}
     - Class: 850595691
+      Script: {instanceID: 0}
+    Assets/Scenes/StartMenuScene.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11918}
+    - Class: 114
+      Script: {instanceID: 11920}
+    - Class: 114
+      Script: {instanceID: 11926}
+    - Class: 114
+      Script: {instanceID: 12382}
+    - Class: 114
+      Script: {instanceID: 12744}
+    - Class: 114
+      Script: {instanceID: 12912}
+    - Class: 114
+      Script: {instanceID: 13144}
+    - Class: 114
+      Script: {instanceID: 13986}
+    - Class: 114
+      Script: {instanceID: 15602}
+    - Class: 114
+      Script: {instanceID: 15656}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -429,6 +659,12 @@ ScriptsOnlyBuild:
     className: ColorCurves
   - hash:
       serializedVersion: 2
+      Hash: 090a30d40168242222c54dc27fed517a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Enemy
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -469,6 +705,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.RenderPipelines.Core.Runtime.dll
     namespaceName: UnityEngine.Rendering
     className: CameraSwitcher
+  - hash:
+      serializedVersion: 2
+      Hash: 1cbceda1e528c984be97269e0d6792cf
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: StoryIntroManager
   - hash:
       serializedVersion: 2
       Hash: bdb2aa563ff34cd96dfe8e46b3382012
@@ -525,10 +767,22 @@ ScriptsOnlyBuild:
     className: UIFoldout
   - hash:
       serializedVersion: 2
+      Hash: 84cae84cda756aa36a486ddf2086ed4b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CamFollow
+  - hash:
+      serializedVersion: 2
       Hash: cc4274b586df3c02688bac01b88bd16c
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: EventSystem
+  - hash:
+      serializedVersion: 2
+      Hash: 13ef01b9c104ae4509a6b317d36e434c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Player
   - hash:
       serializedVersion: 2
       Hash: 0fb27be807aa299702f28ad0bcad1f46
@@ -577,6 +831,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.RenderPipelines.Universal.Runtime.dll
     namespaceName: UnityEngine.Rendering.Universal
     className: UniversalRenderPipelineAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: NextLevelPortal
   - hash:
       serializedVersion: 2
       Hash: 5e1eefcd5106de6c2e85908a3b2d3f04
@@ -669,7 +929,7 @@ ScriptsOnlyBuild:
     className: ColorLookup
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 456b083751b9d9e4f2dd5fae029f023a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -789,6 +1049,12 @@ ScriptsOnlyBuild:
     className: DebugUIHandlerButton
   - hash:
       serializedVersion: 2
+      Hash: 309beb0eb41f7e4d903a4bdaddaa5239
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LoadingSceneManager
+  - hash:
+      serializedVersion: 2
       Hash: 597cfde2e60b842b3acbd2961ff0631b
     assemblyName: Unity.RenderPipelines.Universal.Runtime.dll
     namespaceName: UnityEngine.Rendering.Universal
@@ -835,6 +1101,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: AudioTrack
+  - hash:
+      serializedVersion: 2
+      Hash: fb45513f64c8b80a3206d05721dd01b6
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SkillTreeManager
   - hash:
       serializedVersion: 2
       Hash: f69dfc6409fbbd89d3689368e99688a8
@@ -927,7 +1199,7 @@ ScriptsOnlyBuild:
     className: DebugUIHandlerEnumHistory
   - hash:
       serializedVersion: 2
-      Hash: 99149bd7ce56c4545996c0657465e066
+      Hash: 56370201f725b8be8bf4a003bf7794ba
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: LevelBiome
@@ -963,13 +1235,19 @@ ScriptsOnlyBuild:
     className: PlayModeRunnerCallback
   - hash:
       serializedVersion: 2
+      Hash: a104461777379b336527166e36639f36
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: EnemyGroup
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: BaseInput
   - hash:
       serializedVersion: 2
-      Hash: 86a15dc39e33647d79e3634494bd42b7
+      Hash: 3e639f51a48a3b0e9d1c27d9e829cf14
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: LevelGenerator
@@ -1003,6 +1281,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: WallSensor
+  - hash:
+      serializedVersion: 2
+      Hash: 755723ee43d91ac403fe8bb122915189
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LoadSceneButton
   - hash:
       serializedVersion: 2
       Hash: c60c5cba0d5ed4f4a018240d6339217f
@@ -1105,19 +1389,10 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: afc5b93a7b192de2dcb3832fe35a5c7e
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Player
-  - hash:
-      serializedVersion: 2
-      Hash: 84cae84cda756aa36a486ddf2086ed4b
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: CamFollow
   platform: 5
   scenePathNames:
-  - Assets/Scenes/Alagado.unity
-  playerPath: C:/Users/rafae/Desktop/FenrirTest2/FenrirTest_B.exe
+  - Assets/Scenes/PostPTest.unity
+  - Assets/Scenes/StartMenuScene.unity
+  - Assets/Scenes/LoadingScene.unity
+  - Assets/Scenes/GameScene.unity
+  playerPath: C:/Users/carin/OneDrive/Documentos/000 - Coisas/DSRPT21 - PS/Entrega01/XR/FenrirsFate/TestBuiild/V2/FenrirTest_B.exe
