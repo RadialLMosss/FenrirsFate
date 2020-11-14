@@ -68,6 +68,7 @@ public class Enemy : MonoBehaviour
         {
             GameObject cystal = Instantiate(crystalPB, transform.position, Quaternion.identity);
         }
+        Player.enemiesToDefeat -= 1;
         Destroy(gameObject);
     }
 

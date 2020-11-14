@@ -7,13 +7,13 @@ using UnityEngine.AI;
 
 public class LevelGenerator : MonoBehaviour
 {
+    public GameObject water; // should activate only after baking the navmesh
     public enum LevelType { start, combat, puzzle, shop, boss }
-    public LevelType levelType;
+    public static LevelType levelType;
 
     [HideInInspector] public int enemyGroupIndex; //each number represents a different group of enemies (types && quantity)
     public EnemyGroup[] enemyGroups;
     private List<GameObject> enemiesSpawned = new List<GameObject>();
-
     enum SectionDirection { east, north, south}
     SectionDirection sectionDirection;
 
@@ -200,8 +200,7 @@ public class LevelGenerator : MonoBehaviour
     public void ResetGenerator()
     {
         // ficar instanciando e destruindo não é uma boa ideia, depois melhorar isso!
-           //   -> Talvez usar Addressables ou tentar limpar GarbageCollector de outra forma
-
+        //   -> Talvez usar Addressables ou tentar limpar GarbageCollector de outra forma
         sectionsMade = 0;
         transform.position = Vector3.zero;
         foreach (LevelSection section in levelSections)
@@ -215,6 +214,9 @@ public class LevelGenerator : MonoBehaviour
             Destroy(enemie);
         }
         enemiesSpawned.Clear();
+        water.SetActive(false);
+        NextLevelPortal.canUpdate = false;
+        Player.enemiesToDefeat = 0;
     }
 
 
@@ -231,6 +233,7 @@ public class LevelGenerator : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         navMeshParent.BuildNavMesh();
+        yield return new WaitForSeconds(1);
         if(levelType == LevelType.combat)
         {
             SpawnEnemies();
@@ -242,6 +245,9 @@ public class LevelGenerator : MonoBehaviour
     {
         playerTransform.position = new Vector3(levelSections[0].transform.position.x, 1, levelSections[0].transform.position.z);
         levelTransitionScreen.gameObject.SetActive(false);
+        water.SetActive(true);
+        Player.enemiesToDefeat = enemiesSpawned.Count;
+        NextLevelPortal.canUpdate = true;
     }
 
     void SpawnEnemies()
@@ -249,21 +255,33 @@ public class LevelGenerator : MonoBehaviour
         int levelIndex = 1;
         for (int i = 0; i < enemyGroups[enemyGroupIndex].enemies.Length; i++)
         {
-            if(i < 3)
+            if (i < 2)
             {
                 levelIndex = 1;
             }
-            if(i>=3 && i < 5)
+            else if (i > 1 && i < 4)
             {
                 levelIndex = 2;
             }
-            else if(i > 4 &&  i < 7)
+            else if (i > 3 && i < 6)
             {
                 levelIndex = 3;
             }
-            else if(i >= 7)
+            else if (i > 5 && i < 8)
+            {
+                levelIndex = 4;
+            }
+            else if (i > 7 && i < 10)
             {
                 levelIndex = 5;
+            }
+            else if (i > 9 && i < 13)
+            {
+                levelIndex = 6;
+            }
+            else
+            {
+                levelIndex = 7;
             }
 
             Vector3 point;
@@ -275,7 +293,7 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    private float range = 10.0f;
+    private float range = 8.0f;
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
         for (int i = 0; i < 30; i++)

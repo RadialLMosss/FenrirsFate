@@ -2,6 +2,10 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - CamFollow
+<<<<<<< Updated upstream
+=======
+    - CollectablePrize
+>>>>>>> Stashed changes
     - Enemy
     - EnemyGroup
     - GameManager
@@ -15,6 +19,10 @@ ScriptsOnlyBuild:
     - NextLevelPortal
     - Player
     - SectionSensor
+<<<<<<< Updated upstream
+=======
+    - ShopManager
+>>>>>>> Stashed changes
     - SkillTreeManager
     - StoryIntroManager
     - WallSensor
@@ -121,6 +129,7 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 114
       Script: {instanceID: 11918}
+<<<<<<< Updated upstream
     - Class: 114
       Script: {instanceID: 11920}
     - Class: 114
@@ -289,15 +298,123 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 108
       Script: {instanceID: 0}
+=======
     - Class: 114
-      Script: {instanceID: 11914}
+      Script: {instanceID: 11920}
     - Class: 114
-      Script: {instanceID: 11916}
+      Script: {instanceID: 11926}
+>>>>>>> Stashed changes
+    - Class: 114
+      Script: {instanceID: 12080}
+    - Class: 114
+      Script: {instanceID: 12312}
+    - Class: 114
+      Script: {instanceID: 12446}
+    - Class: 114
+      Script: {instanceID: 12606}
+    - Class: 114
+      Script: {instanceID: 12976}
+    - Class: 114
+      Script: {instanceID: 13152}
+    - Class: 114
+      Script: {instanceID: 13208}
+    - Class: 114
+      Script: {instanceID: 13210}
+    - Class: 114
+      Script: {instanceID: 13470}
+    - Class: 114
+      Script: {instanceID: 14020}
+    - Class: 114
+      Script: {instanceID: 14048}
+    - Class: 114
+      Script: {instanceID: 14074}
+    - Class: 114
+      Script: {instanceID: 14114}
+    - Class: 114
+      Script: {instanceID: 14430}
+    - Class: 114
+      Script: {instanceID: 14586}
+    - Class: 114
+      Script: {instanceID: 14654}
+    - Class: 114
+      Script: {instanceID: 14858}
+    - Class: 114
+      Script: {instanceID: 14886}
+    - Class: 114
+      Script: {instanceID: 14920}
+    - Class: 114
+      Script: {instanceID: 15074}
+    - Class: 114
+      Script: {instanceID: 15134}
+    - Class: 114
+      Script: {instanceID: 15166}
+    - Class: 114
+      Script: {instanceID: 15382}
+    - Class: 114
+      Script: {instanceID: 15462}
+    - Class: 114
+      Script: {instanceID: 15558}
+    - Class: 114
+      Script: {instanceID: 15582}
+    - Class: 114
+      Script: {instanceID: 15598}
+    - Class: 114
+      Script: {instanceID: 15660}
+    - Class: 114
+      Script: {instanceID: 15716}
+    - Class: 114
+      Script: {instanceID: 15850}
+    - Class: 114
+      Script: {instanceID: 24796}
+    - Class: 114
+      Script: {instanceID: 31110}
+    - Class: 114
+      Script: {instanceID: 45488}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 135
+      Script: {instanceID: 0}
+    - Class: 136
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 195
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/LoadingScene.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
     - Class: 114
       Script: {instanceID: 11918}
     - Class: 114
       Script: {instanceID: 11920}
     - Class: 114
+<<<<<<< Updated upstream
       Script: {instanceID: 11922}
     - Class: 114
       Script: {instanceID: 11924}
@@ -375,22 +492,20 @@ ScriptsOnlyBuild:
       Script: {instanceID: 15374}
     - Class: 114
       Script: {instanceID: 15422}
+=======
+      Script: {instanceID: 11926}
     - Class: 114
-      Script: {instanceID: 15600}
+      Script: {instanceID: 12446}
     - Class: 114
-      Script: {instanceID: 15624}
+      Script: {instanceID: 12976}
     - Class: 114
-      Script: {instanceID: 15626}
+      Script: {instanceID: 13208}
     - Class: 114
-      Script: {instanceID: 15680}
+      Script: {instanceID: 14634}
     - Class: 114
-      Script: {instanceID: 15790}
+      Script: {instanceID: 15598}
     - Class: 114
-      Script: {instanceID: 15808}
-    - Class: 114
-      Script: {instanceID: 15816}
-    - Class: 114
-      Script: {instanceID: 24318}
+      Script: {instanceID: 15716}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -407,6 +522,145 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
+    Assets/Scenes/StartMenuScene.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11914}
+    - Class: 114
+      Script: {instanceID: 11916}
+    - Class: 114
+      Script: {instanceID: 11918}
+    - Class: 114
+      Script: {instanceID: 11920}
+    - Class: 114
+      Script: {instanceID: 11922}
+    - Class: 114
+      Script: {instanceID: 11924}
+    - Class: 114
+      Script: {instanceID: 11926}
+    - Class: 114
+      Script: {instanceID: 12146}
+    - Class: 114
+      Script: {instanceID: 12258}
+    - Class: 114
+      Script: {instanceID: 12280}
+    - Class: 114
+      Script: {instanceID: 12446}
+    - Class: 114
+      Script: {instanceID: 12486}
+    - Class: 114
+      Script: {instanceID: 12664}
+    - Class: 114
+      Script: {instanceID: 12808}
+    - Class: 114
+      Script: {instanceID: 12976}
+    - Class: 114
+      Script: {instanceID: 13022}
+    - Class: 114
+      Script: {instanceID: 13082}
+    - Class: 114
+      Script: {instanceID: 13208}
+    - Class: 114
+      Script: {instanceID: 13326}
+    - Class: 114
+      Script: {instanceID: 13550}
+    - Class: 114
+      Script: {instanceID: 13592}
+    - Class: 114
+      Script: {instanceID: 13654}
+    - Class: 114
+      Script: {instanceID: 13762}
+    - Class: 114
+      Script: {instanceID: 14048}
+    - Class: 114
+      Script: {instanceID: 14076}
+    - Class: 114
+      Script: {instanceID: 14370}
+    - Class: 114
+      Script: {instanceID: 14430}
+    - Class: 114
+      Script: {instanceID: 14450}
+    - Class: 114
+      Script: {instanceID: 14572}
+    - Class: 114
+      Script: {instanceID: 14610}
+    - Class: 114
+      Script: {instanceID: 14618}
+    - Class: 114
+      Script: {instanceID: 14932}
+    - Class: 114
+      Script: {instanceID: 15002}
+    - Class: 114
+      Script: {instanceID: 15250}
+>>>>>>> Stashed changes
+    - Class: 114
+      Script: {instanceID: 15434}
+    - Class: 114
+<<<<<<< Updated upstream
+      Script: {instanceID: 15624}
+    - Class: 114
+      Script: {instanceID: 15626}
+    - Class: 114
+      Script: {instanceID: 15680}
+    - Class: 114
+      Script: {instanceID: 15790}
+    - Class: 114
+      Script: {instanceID: 15808}
+    - Class: 114
+      Script: {instanceID: 15816}
+    - Class: 114
+      Script: {instanceID: 24318}
+=======
+      Script: {instanceID: 15482}
+    - Class: 114
+      Script: {instanceID: 15662}
+    - Class: 114
+      Script: {instanceID: 15684}
+    - Class: 114
+      Script: {instanceID: 15686}
+    - Class: 114
+      Script: {instanceID: 15716}
+    - Class: 114
+      Script: {instanceID: 15740}
+    - Class: 114
+      Script: {instanceID: 15868}
+    - Class: 114
+      Script: {instanceID: 15876}
+>>>>>>> Stashed changes
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+<<<<<<< Updated upstream
     - Class: 850595691
       Script: {instanceID: 0}
     Assets/Scenes/StartMenuScene.unity:
@@ -464,6 +718,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
+=======
+>>>>>>> Stashed changes
   scriptHashData:
   - hash:
       serializedVersion: 2
@@ -507,6 +763,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: CanvasScaler
+  - hash:
+      serializedVersion: 2
+      Hash: 2cb85097bd451bae61ff71e703256582
+    assemblyName: Unity.RenderPipelines.Universal.Runtime.dll
+    namespaceName: UnityEngine.Rendering.Universal
+    className: UniversalRenderPipelineAsset
   - hash:
       serializedVersion: 2
       Hash: f40fedccd4adbc76605bea6d67537e4b
@@ -779,7 +1041,11 @@ ScriptsOnlyBuild:
     className: EventSystem
   - hash:
       serializedVersion: 2
+<<<<<<< Updated upstream
       Hash: 13ef01b9c104ae4509a6b317d36e434c
+=======
+      Hash: f575d0e7dc32d849ab9674d3c8f55469
+>>>>>>> Stashed changes
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -827,10 +1093,10 @@ ScriptsOnlyBuild:
     className: NavMeshModifierVolume
   - hash:
       serializedVersion: 2
-      Hash: 2cb85097bd451bae61ff71e703256582
-    assemblyName: Unity.RenderPipelines.Universal.Runtime.dll
-    namespaceName: UnityEngine.Rendering.Universal
-    className: UniversalRenderPipelineAsset
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: NextLevelPortal
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1247,7 +1513,11 @@ ScriptsOnlyBuild:
     className: BaseInput
   - hash:
       serializedVersion: 2
+<<<<<<< Updated upstream
       Hash: 3e639f51a48a3b0e9d1c27d9e829cf14
+=======
+      Hash: 039eb70ac918fc64da25cd3da5ab2823
+>>>>>>> Stashed changes
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: LevelGenerator
@@ -1389,6 +1659,7 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+<<<<<<< Updated upstream
   platform: 5
   scenePathNames:
   - Assets/Scenes/PostPTest.unity
@@ -1396,3 +1667,23 @@ ScriptsOnlyBuild:
   - Assets/Scenes/LoadingScene.unity
   - Assets/Scenes/GameScene.unity
   playerPath: C:/Users/carin/OneDrive/Documentos/000 - Coisas/DSRPT21 - PS/Entrega01/XR/FenrirsFate/TestBuiild/V2/FenrirTest_B.exe
+=======
+  - hash:
+      serializedVersion: 2
+      Hash: 812722b6e5367020b5a3b0040f393a24
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CollectablePrize
+  - hash:
+      serializedVersion: 2
+      Hash: 7b84c5f6b74107409b594191566624d2
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ShopManager
+  platform: 5
+  scenePathNames:
+  - Assets/Scenes/StartMenuScene.unity
+  - Assets/Scenes/LoadingScene.unity
+  - Assets/Scenes/GameScene.unity
+  playerPath: C:/Users/rafae/Desktop/FenrirTest_B.exe
+>>>>>>> Stashed changes

@@ -233,10 +233,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storyText: {fileID: 1006057099}
   storyStrings:
-  - 'ajsidjasdijsadj aisdja isdj aisdj aisdja isd jsaidj '
-  - a sidjaisd ajisdjaisdajsd aidja d
-  - aisdj iasj daidajsdiasjd aisjdiasjdaisdj
-  - ' asdasid aijdiasjd asidjaidj'
+  - "Pelo temor que os deuses sentiam, voc\xEA foi isolado e acorrentado. "
+  - Aquele que se dizia justo foi o maior dos traidores.
+  - "Os habilidosos an\xF5es forjaram suas inquebrant\xE1veis correntes. Ou assim
+    eles pensavam\u2026"
+  - "Ap\xF3s uma eternidade injustamente preso, o que voc\xEA faria pela sua liberdade?"
 --- !u!4 &823010401
 Transform:
   m_ObjectHideFlags: 0

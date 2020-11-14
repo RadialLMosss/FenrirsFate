@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Text levelCountText = null;
     [SerializeField] Text levelTypeText = null;
-    [HideInInspector] public static int levelCount = 0;
+    [HideInInspector] public static int levelCount = -1;
     [SerializeField] LevelGenerator levelGenerator = null;
 
     private void Start()
@@ -24,21 +24,21 @@ public class GameManager : MonoBehaviour
     {
         levelGenerator.ResetGenerator();
 
-        if ((levelCount == 4 || levelCount == 8) && nextIndex == 1) //Shop Type
+        if ((levelCount == 4 || levelCount == 7) && nextIndex == 1) //Shop Type
         {
-            levelGenerator.levelType = LevelGenerator.LevelType.shop;
+            LevelGenerator.levelType = LevelGenerator.LevelType.shop;
         }
         else if(levelCount == 9) // Boss Type
         {
-            levelGenerator.levelType = LevelGenerator.LevelType.boss;
+            LevelGenerator.levelType = LevelGenerator.LevelType.boss;
+        }
+        else if(levelCount == -1)
+        {
+            LevelGenerator.levelType = LevelGenerator.LevelType.start;
         }
         else if(levelCount == 0)
         {
-            levelGenerator.levelType = LevelGenerator.LevelType.start;
-        }
-        else if(levelCount == 1)
-        {
-            levelGenerator.levelType = LevelGenerator.LevelType.combat;
+            LevelGenerator.levelType = LevelGenerator.LevelType.combat;
         }
         else
         {
@@ -46,44 +46,44 @@ public class GameManager : MonoBehaviour
             {
                 if (nextIndex == 1)
                 {
-                    levelGenerator.levelType = LevelGenerator.LevelType.combat;
+                    LevelGenerator.levelType = LevelGenerator.LevelType.combat;
                 }
                 else
                 {
-                    levelGenerator.levelType = LevelGenerator.LevelType.puzzle;
+                    LevelGenerator.levelType = LevelGenerator.LevelType.puzzle;
                 }
             }
             else
             {
                 if (nextIndex == 1)
                 {
-                    levelGenerator.levelType = LevelGenerator.LevelType.puzzle;
+                    LevelGenerator.levelType = LevelGenerator.LevelType.puzzle;
                 }
                 else
                 {
-                    levelGenerator.levelType = LevelGenerator.LevelType.combat;
+                    LevelGenerator.levelType = LevelGenerator.LevelType.combat;
                 }
             }
 
             // DECIDE ENEMY GROUP
-            if(levelGenerator.levelType == LevelGenerator.LevelType.combat)
+            if(LevelGenerator.levelType == LevelGenerator.LevelType.combat)
             {
-                if(levelCount == 2)
+                if(levelCount < 3) //1 && 2
                 {
                     levelGenerator.enemyGroupIndex = 0;
                     levelGenerator.sectionsCount = 4;
                 }
-                else if(levelCount < 5)
+                else if(levelCount < 5 && levelCount > 2) // 3 && 4
                 {
                     levelGenerator.enemyGroupIndex = 1;
                     levelGenerator.sectionsCount = 6;
                 }
-                else if(levelGenerator.enemyGroupIndex >= 5 && levelGenerator.enemyGroupIndex < 7)
+                else if(levelCount > 4 && levelCount < 7) // 5 && 6
                 {
                     levelGenerator.enemyGroupIndex = 2;
                     levelGenerator.sectionsCount = 8;
                 }
-                else
+                else // 7 && 8
                 {
                     levelGenerator.enemyGroupIndex = 3;
                     levelGenerator.sectionsCount = 10;
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
 
         levelCount++;
         levelCountText.text = levelCount.ToString();
-        levelTypeText.text = levelGenerator.levelType.ToString();
+        levelTypeText.text = LevelGenerator.levelType.ToString();
         levelGenerator.StartGenerator();
     }
 }

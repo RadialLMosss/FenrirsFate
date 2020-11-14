@@ -74,6 +74,6 @@ public class SkillTreeManager : MonoBehaviour
 
     public void Close()
     {
-        this.gameObject.SetActive(false);
+        skillTreePanel.SetActive(false);
     }
 }

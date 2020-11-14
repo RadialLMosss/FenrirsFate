@@ -14,9 +14,11 @@ public class Player : MonoBehaviour
 
     [HideInInspector] public static int furia;
     [HideInInspector] public static int crystals;
+    public static int enemiesToDefeat;
 
     public Text furyText;
     public Text crystalText;
+    public ShopManager shopManager;
 
     private void Awake()
     {
@@ -60,7 +62,6 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-
         Vector3 rightMovement = right * speed * Time.deltaTime * Input.GetAxis("Horizontal");
         Vector3 upMovement = forward * speed * Time.deltaTime * Input.GetAxis("Vertical");
 
@@ -101,6 +102,110 @@ public class Player : MonoBehaviour
         {
             skillTreePanel.SetActive(true);
         }
+        else if (other.GetComponent<CollectablePrize>())
+        {
+            CollectablePrize prize = other.GetComponent<CollectablePrize>();
+            if (prize.version == CollectablePrize.Version.Shop)
+            {
+                shopManager.ShowShopWindow(prize);
+            }
+            else
+            {
+                GetCollectablePrizeEffect(prize);
+            }
+        }
+    }
+
+    public static void GetCollectablePrizeEffect(CollectablePrize prize)
+    {
+        switch (prize.type)
+        {
+            case CollectablePrize.Type.LifePotion:
+                switch (prize.size)
+                {
+                    case CollectablePrize.Size.Small:
+                        break;
+
+                    case CollectablePrize.Size.Medium:
+                        break;
+
+                    case CollectablePrize.Size.Big:
+                        break;
+                }
+                break;
+
+            case CollectablePrize.Type.FuryPotion:
+                switch (prize.size)
+                {
+                    case CollectablePrize.Size.Small:
+                        break;
+
+                    case CollectablePrize.Size.Medium:
+                        break;
+
+                    case CollectablePrize.Size.Big:
+                        break;
+                }
+                break;
+
+            case CollectablePrize.Type.CrystalBag:
+                switch (prize.size)
+                {
+                    case CollectablePrize.Size.Small:
+                        break;
+
+                    case CollectablePrize.Size.Medium:
+                        break;
+
+                    case CollectablePrize.Size.Big:
+                        break;
+                }
+                break;
+
+            case CollectablePrize.Type.LifeRune:
+                switch (prize.size)
+                {
+                    case CollectablePrize.Size.Small:
+                        break;
+
+                    case CollectablePrize.Size.Medium:
+                        break;
+
+                    case CollectablePrize.Size.Big:
+                        break;
+                }
+                break;
+
+            case CollectablePrize.Type.FuryRune:
+                switch (prize.size)
+                {
+                    case CollectablePrize.Size.Small:
+                        break;
+
+                    case CollectablePrize.Size.Medium:
+                        break;
+
+                    case CollectablePrize.Size.Big:
+                        break;
+                }
+                break;
+
+            case CollectablePrize.Type.CourageRune:
+                switch (prize.size)
+                {
+                    case CollectablePrize.Size.Small:
+                        break;
+
+                    case CollectablePrize.Size.Medium:
+                        break;
+
+                    case CollectablePrize.Size.Big:
+                        break;
+                }
+                break;
+        }
+
+        Destroy(prize.gameObject);
     }
 
     private void OnTriggerExit(Collider other)
@@ -109,6 +214,11 @@ public class Player : MonoBehaviour
         {
             skillTreePanel.SetActive(false);
         }
+    }
+
+    public void UpdateCrystalsText()
+    {
+        crystalText.text = "CRISTAIS = " + crystals.ToString();
     }
 
     public LayerMask enemyLayer;
@@ -147,7 +257,7 @@ public class Player : MonoBehaviour
     {
         crystals = 0;
         crystalText.text = "CRISTAIS = " + crystals.ToString();
-        GameManager.levelCount = 0;
+        GameManager.levelCount = -1;
         gameManager.NextLevel(1);
     }
 }
