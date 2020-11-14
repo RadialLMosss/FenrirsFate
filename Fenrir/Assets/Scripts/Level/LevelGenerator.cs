@@ -275,11 +275,11 @@ public class LevelGenerator : MonoBehaviour
             {
                 levelIndex = 5;
             }
-            else if (i > 9 && i < 13)
+            else if (i > 9 && i < 12)
             {
                 levelIndex = 6;
             }
-            else
+            else if(i > 11)
             {
                 levelIndex = 7;
             }
@@ -293,7 +293,7 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    private float range = 8.0f;
+    private float range = 10.0f;
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
         for (int i = 0; i < 30; i++)

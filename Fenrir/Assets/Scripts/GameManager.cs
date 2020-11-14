@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text levelTypeText = null;
     [HideInInspector] public static int levelCount = -1;
     [SerializeField] LevelGenerator levelGenerator = null;
+    bool hasRepeated;
 
     private void Start()
     {
@@ -23,7 +24,6 @@ public class GameManager : MonoBehaviour
     public void NextLevel(int nextIndex)
     {
         levelGenerator.ResetGenerator();
-
         if ((levelCount == 4 || levelCount == 7) && nextIndex == 1) //Shop Type
         {
             LevelGenerator.levelType = LevelGenerator.LevelType.shop;
@@ -46,11 +46,37 @@ public class GameManager : MonoBehaviour
             {
                 if (nextIndex == 1)
                 {
-                    LevelGenerator.levelType = LevelGenerator.LevelType.combat;
+                    if(!hasRepeated)
+                    {
+                        if (LevelGenerator.levelType == LevelGenerator.LevelType.combat)
+                        {
+                            hasRepeated = true;
+                        }
+                        LevelGenerator.levelType = LevelGenerator.LevelType.combat;
+                    }
+                    else
+                    {
+                        LevelGenerator.levelType = LevelGenerator.LevelType.puzzle;
+                        hasRepeated = false;
+                    }
                 }
+
                 else
                 {
-                    LevelGenerator.levelType = LevelGenerator.LevelType.puzzle;
+                    if(!hasRepeated)
+                    {
+                        if (LevelGenerator.levelType == LevelGenerator.LevelType.puzzle)
+                        {
+                            hasRepeated = true;
+                        }
+                        LevelGenerator.levelType = LevelGenerator.LevelType.puzzle;
+                    }
+                    else
+                    {
+                        LevelGenerator.levelType = LevelGenerator.LevelType.combat;
+                        hasRepeated = false;
+                    }
+
                 }
             }
             else
@@ -64,30 +90,29 @@ public class GameManager : MonoBehaviour
                     LevelGenerator.levelType = LevelGenerator.LevelType.combat;
                 }
             }
-
-            // DECIDE ENEMY GROUP
-            if(LevelGenerator.levelType == LevelGenerator.LevelType.combat)
+        }
+        // DECIDE ENEMY GROUP
+        if (LevelGenerator.levelType == LevelGenerator.LevelType.combat)
+        {
+            if (levelCount < 3) //1 && 2
             {
-                if(levelCount < 3) //1 && 2
-                {
-                    levelGenerator.enemyGroupIndex = 0;
-                    levelGenerator.sectionsCount = 4;
-                }
-                else if(levelCount < 5 && levelCount > 2) // 3 && 4
-                {
-                    levelGenerator.enemyGroupIndex = 1;
-                    levelGenerator.sectionsCount = 6;
-                }
-                else if(levelCount > 4 && levelCount < 7) // 5 && 6
-                {
-                    levelGenerator.enemyGroupIndex = 2;
-                    levelGenerator.sectionsCount = 8;
-                }
-                else // 7 && 8
-                {
-                    levelGenerator.enemyGroupIndex = 3;
-                    levelGenerator.sectionsCount = 10;
-                }
+                levelGenerator.enemyGroupIndex = 0;
+                levelGenerator.sectionsCount = 4;
+            }
+            else if (levelCount < 5 && levelCount > 2) // 3 && 4
+            {
+                levelGenerator.enemyGroupIndex = 1;
+                levelGenerator.sectionsCount = 6;
+            }
+            else if (levelCount > 4 && levelCount < 7) // 5 && 6
+            {
+                levelGenerator.enemyGroupIndex = 2;
+                levelGenerator.sectionsCount = 8;
+            }
+            else // 7 && 8
+            {
+                levelGenerator.enemyGroupIndex = 3;
+                levelGenerator.sectionsCount = 10;
             }
         }
 

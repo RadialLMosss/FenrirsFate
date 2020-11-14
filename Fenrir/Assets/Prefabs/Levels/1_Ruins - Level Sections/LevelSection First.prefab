@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 91822886832851876}
   - component: {fileID: 682278850295459506}
   - component: {fileID: 7902304679368750918}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: North
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -738,7 +738,7 @@ GameObject:
   - component: {fileID: 8797414748224561842}
   - component: {fileID: 2558913128372424912}
   - component: {fileID: 8390527021656649553}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: West
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -833,7 +833,7 @@ GameObject:
   - component: {fileID: 2021899598857801429}
   - component: {fileID: 3852146442444847195}
   - component: {fileID: 4686143599999951380}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: East
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1518,7 +1518,7 @@ GameObject:
   - component: {fileID: 7819270341306572240}
   - component: {fileID: 6606446908183778004}
   m_Layer: 0
-  m_Name: LevelSection Start
+  m_Name: LevelSection First
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1644,7 +1644,7 @@ GameObject:
   - component: {fileID: 8209868791825217158}
   - component: {fileID: 6217500096129932692}
   - component: {fileID: 5128881095487461067}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: South
   m_TagString: Untagged
   m_Icon: {fileID: 0}

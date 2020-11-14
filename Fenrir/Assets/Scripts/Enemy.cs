@@ -63,10 +63,11 @@ public class Enemy : MonoBehaviour
 
     public void EnemyDeath()
     {
-        player.GetFuryCurrency();
+        player.UpdateFuryCurrency(5);
         if(Random.Range(0, 3) == 0)
         {
-            GameObject cystal = Instantiate(crystalPB, transform.position, Quaternion.identity);
+            GameObject crystal = Instantiate(crystalPB, transform.position, Quaternion.identity);
+            Destroy(crystal, 10);
         }
         Player.enemiesToDefeat -= 1;
         Destroy(gameObject);

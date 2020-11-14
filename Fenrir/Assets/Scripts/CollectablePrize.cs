@@ -17,12 +17,14 @@ public class CollectablePrize : MonoBehaviour
     public GameObject[] possibleVisuals;
     public int[] prices;
     [HideInInspector] public int price;
+    public GameObject chestModel;
+    [HideInInspector] public bool isChestOpened;
 
     private void Start()
     {
         if(LevelGenerator.levelType == LevelGenerator.LevelType.puzzle && version == Version.Chest)
         {
-            InitChestVersion();
+            chestModel.SetActive(true);
         }
         else if(LevelGenerator.levelType == LevelGenerator.LevelType.shop && version == Version.Shop)
         {
@@ -31,6 +33,16 @@ public class CollectablePrize : MonoBehaviour
         else
         {
             gameObject.SetActive(false);
+        }
+    }
+
+    public void OpenChest()
+    {
+        if(version == Version.Chest)
+        {
+            //play animation
+            InitChestVersion();
+            isChestOpened = true;
         }
     }
 

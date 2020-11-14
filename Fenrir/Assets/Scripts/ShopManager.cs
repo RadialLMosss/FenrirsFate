@@ -29,8 +29,7 @@ public class ShopManager : MonoBehaviour
         if(Player.crystals >= currentProduct.price)
         {
             shopPanel.SetActive(false);
-            Player.crystals -= currentProduct.price;
-            player.UpdateCrystalsText();
+            player.UpdateCrystalCurrency(currentProduct.price);
             Player.GetCollectablePrizeEffect(currentProduct);
         }
         else

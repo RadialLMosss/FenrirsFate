@@ -7,7 +7,7 @@ public class StoryIntroManager : MonoBehaviour
 {
     int textCount = -1;
     public Text storyText;
-    public string[] storyStrings;
+    [TextArea(2, 3)]public string[] storyStrings;
     string nextSceneName;
 
     public void StartStoryIntro(string nextScene)

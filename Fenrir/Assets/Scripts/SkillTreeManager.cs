@@ -26,7 +26,7 @@ public class SkillTreeManager : MonoBehaviour
 
         if (Player.furia > skill.skillCost)
         {
-            player.Losefury(skill.skillCost);
+            player.UpdateFuryCurrency(-skill.skillCost);
 
             skill.buttonCurrent.interactable = false;
             skill.buttonCurrent.GetComponent<Image>().color = Color.red;

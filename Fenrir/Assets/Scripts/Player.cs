@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] float speed = 10;
+    float speed = 350f;
+    float rbSpeed = 7.5f;
+    float dashSpeed = 50f;
     Rigidbody rb;
 
     Vector3 forward, right;
@@ -20,11 +22,18 @@ public class Player : MonoBehaviour
     public Text crystalText;
     public ShopManager shopManager;
 
+    public LayerMask enemyLayer;
+    public GameObject attackVol;
+    public GameObject skillTreePanel;
+    public LayerMask collectablePrizesLayer;
+    public Image lifeBar;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
     }
+
 
     private void Start()
     {
@@ -35,29 +44,61 @@ public class Player : MonoBehaviour
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
     }
 
-    private float totalTimer = 0.5f;
-    private float runningTimer;
+    private float totalTimer = 0.4f;
+    private float runningWalkTimer;
+    private float runningDashTimer;
+    float dashDuration = 0.13f;
 
-    void Update()
+    // =====================================================================================
+
+    private void Update()
+    {
+        if (runningWalkTimer <= 0)
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Attack();
+                runningWalkTimer = totalTimer;
+            }
+        }
+        else
+        {
+            runningWalkTimer -= Time.deltaTime;
+        }
+    }
+
+    void LateUpdate()
     {
         if(Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
         {
             Move();
         }
-
-        if(runningTimer <= 0)
+        if(!Input.GetButton("Horizontal") && !Input.GetButton("Vertical"))
         {
-            if(Input.GetButtonDown("Jump"))
+            rb.velocity = Vector3.zero;
+        }
+
+        if (runningDashTimer <= 0)
+        {
+            if(Input.GetButtonDown("Fire2"))
             {
-                Attack();
-                runningTimer = totalTimer;
+                StartCoroutine(Dash());
             }
         }
         else
         {
-            runningTimer -= Time.deltaTime;
+            runningDashTimer -= Time.deltaTime;
         }
 
+    }
+    //Dash
+    IEnumerator Dash()
+    {
+        float originalSpeed = rbSpeed;
+        rbSpeed = dashSpeed;
+        yield return new WaitForSeconds(dashDuration);
+        rbSpeed = originalSpeed;
+        runningDashTimer = totalTimer;
     }
 
     private void Move()
@@ -72,10 +113,44 @@ public class Player : MonoBehaviour
 
         transform.forward = heading;
 
-        transform.position += rightMovement;
-        transform.position += upMovement;
+        //transform.position += rightMovement;
+        //transform.position += upMovement;
+        rb.velocity = heading * rbSpeed;
     }
 
+    public void Attack()
+    {
+        attackVol.SetActive(true);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 6, enemyLayer);
+        foreach (Collider hitCollider in hitColliders)
+        {
+            hitCollider.GetComponent<Enemy>().EnemyDeath();
+        }
+
+        Collider[] hitColliders2 = Physics.OverlapSphere(transform.position, 6, collectablePrizesLayer);
+        foreach (Collider hitCollider in hitColliders2)
+        {
+            hitCollider.GetComponent<CollectablePrize>().OpenChest();
+        }
+        StartCoroutine(DisableAttackVol());
+    }
+    IEnumerator DisableAttackVol()
+    {
+        yield return new WaitForSeconds(0.15f);
+        attackVol.SetActive(false);
+    }
+
+    // =====================================================================================
+    static float lifePoints = 10;
+    public void UpdateLifePoints(float value)
+    {
+        lifePoints += value;
+        lifeBar.fillAmount = lifePoints / 10;
+        if(lifePoints <= 0)
+        {
+            PlayerDeath();
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Finish"))
@@ -90,13 +165,12 @@ public class Player : MonoBehaviour
         }
         else if(other.CompareTag("Damage"))
         {
-            PlayerDeath();
+            UpdateLifePoints(-2);
         }
         else if(other.CompareTag("Crystal"))
         {
             Destroy(other.gameObject);
-            crystals += 10;
-            crystalText.text = "CRISTAIS = " + crystals.ToString();
+            UpdateCrystalCurrency(10);
         }
         else if(other.CompareTag("SkillTreePoint"))
         {
@@ -111,10 +185,15 @@ public class Player : MonoBehaviour
             }
             else
             {
-                GetCollectablePrizeEffect(prize);
+                if(prize.isChestOpened)
+                {
+                    GetCollectablePrizeEffect(prize);
+                }
             }
         }
     }
+
+    // ==================================================================================================
 
     public static void GetCollectablePrizeEffect(CollectablePrize prize)
     {
@@ -216,40 +295,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void UpdateCrystalsText()
+
+    public void UpdateCrystalCurrency(int value)
     {
+        crystals += value;
         crystalText.text = "CRISTAIS = " + crystals.ToString();
     }
 
-    public LayerMask enemyLayer;
-    public GameObject attackVol;
-    public GameObject skillTreePanel;
-
-    public void Attack()
+    public void UpdateFuryCurrency(int value)
     {
-        attackVol.SetActive(true);
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 6,  enemyLayer);
-        foreach (var hitCollider in hitColliders)
-        {
-            hitCollider.GetComponent<Enemy>().EnemyDeath();
-        }
-        StartCoroutine(DisableAttackVol());
-    }
-    IEnumerator DisableAttackVol()
-    {
-        yield return new WaitForSeconds(0.2f);
-        attackVol.SetActive(false);
-    }
-
-    public void GetFuryCurrency()
-    {
-        furia += 5;
-        furyText.text = "FÚRIA = " + furia.ToString();
-    }
-
-    public void Losefury(int lose)
-    {
-        furia -= lose;
+        furia += value;
         furyText.text = "FÚRIA = " + furia.ToString();
     }
 
@@ -259,5 +314,7 @@ public class Player : MonoBehaviour
         crystalText.text = "CRISTAIS = " + crystals.ToString();
         GameManager.levelCount = -1;
         gameManager.NextLevel(1);
+        lifePoints = 10;
+        UpdateLifePoints(0);
     }
 }
