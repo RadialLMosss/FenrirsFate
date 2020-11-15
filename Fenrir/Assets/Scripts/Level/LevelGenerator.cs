@@ -63,7 +63,6 @@ public class LevelGenerator : MonoBehaviour
                 break;
 
             case LevelType.puzzle:
-                sectionsCount = Random.Range(3, 6);
                 currentNormalSection = currentLevelTemplate.puzzleSectionsPB;
                 break;
 
@@ -238,6 +237,10 @@ public class LevelGenerator : MonoBehaviour
         {
             SpawnEnemies();
         }
+        else if(levelType == LevelType.puzzle)
+        {
+            SpawnPuzzleTotems();
+        }
         ResetPlayerPosition();
     }
 
@@ -248,6 +251,23 @@ public class LevelGenerator : MonoBehaviour
         water.SetActive(true);
         Player.enemiesToDefeat = enemiesSpawned.Count;
         NextLevelPortal.canUpdate = true;
+    }
+
+    public GameObject puzzleTotemPB;
+    void SpawnPuzzleTotems()
+    {
+        Vector3 point;
+        for (int i = 0; i < levelSections.Count; i++)
+        {
+            if(i!=0 && i< levelSections.Count-1)
+            {
+                if (RandomPoint(levelSections[i].transform.position, range, out point))
+                {
+                    GameObject puzzleTotem = Instantiate(puzzleTotemPB, point, Quaternion.identity);
+                    enemiesSpawned.Add(puzzleTotem);
+                }
+            }
+        }
     }
 
     void SpawnEnemies()

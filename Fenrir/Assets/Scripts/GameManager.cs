@@ -14,7 +14,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text levelTypeText = null;
     [HideInInspector] public static int levelCount = -1;
     [SerializeField] LevelGenerator levelGenerator = null;
-    bool hasRepeated;
+    bool hasRepeatedCombat;
+    bool hasRepeatedPuzzle;
 
     private void Start()
     {
@@ -44,55 +45,91 @@ public class GameManager : MonoBehaviour
         {
             if(Random.Range(0, 2) == 0)
             {
-                if (nextIndex == 1)
+                if (nextIndex == 1) //combat
                 {
-                    if(!hasRepeated)
+                    if (LevelGenerator.levelType != LevelGenerator.LevelType.combat)
                     {
-                        if (LevelGenerator.levelType == LevelGenerator.LevelType.combat)
-                        {
-                            hasRepeated = true;
-                        }
                         LevelGenerator.levelType = LevelGenerator.LevelType.combat;
                     }
                     else
                     {
-                        LevelGenerator.levelType = LevelGenerator.LevelType.puzzle;
-                        hasRepeated = false;
+                        if (!hasRepeatedCombat)
+                        {
+                            hasRepeatedCombat = true;
+                        }
+                        else
+                        {
+                            LevelGenerator.levelType = LevelGenerator.LevelType.puzzle;
+                            hasRepeatedCombat = false;
+                        }
                     }
                 }
 
-                else
+                else //puzzle
                 {
-                    if(!hasRepeated)
+                    if (LevelGenerator.levelType != LevelGenerator.LevelType.puzzle)
                     {
-                        if (LevelGenerator.levelType == LevelGenerator.LevelType.puzzle)
-                        {
-                            hasRepeated = true;
-                        }
                         LevelGenerator.levelType = LevelGenerator.LevelType.puzzle;
                     }
                     else
                     {
-                        LevelGenerator.levelType = LevelGenerator.LevelType.combat;
-                        hasRepeated = false;
+                        if (!hasRepeatedPuzzle)
+                        {
+                            hasRepeatedPuzzle = true;
+                        }
+                        else
+                        {
+                            LevelGenerator.levelType = LevelGenerator.LevelType.combat;
+                            hasRepeatedPuzzle = false;
+                        }
                     }
-
                 }
             }
             else
             {
-                if (nextIndex == 1)
+                if (nextIndex == 1) //puzzle
                 {
-                    LevelGenerator.levelType = LevelGenerator.LevelType.puzzle;
+                    if(LevelGenerator.levelType != LevelGenerator.LevelType.puzzle)
+                    {
+                        LevelGenerator.levelType = LevelGenerator.LevelType.puzzle;
+                    }
+                    else
+                    {
+                        if (!hasRepeatedPuzzle)
+                        {
+                            hasRepeatedPuzzle = true;
+                        }
+                        else
+                        {
+                            LevelGenerator.levelType = LevelGenerator.LevelType.combat;
+                            hasRepeatedPuzzle = false;
+                        }
+                    }
                 }
-                else
+
+                else //combat
                 {
-                    LevelGenerator.levelType = LevelGenerator.LevelType.combat;
+                    if (LevelGenerator.levelType != LevelGenerator.LevelType.combat)
+                    {
+                        LevelGenerator.levelType = LevelGenerator.LevelType.combat;
+                    }
+                    else
+                    {
+                        if (!hasRepeatedCombat)
+                        {
+                            hasRepeatedCombat = true;
+                        }
+                        else
+                        {
+                            LevelGenerator.levelType = LevelGenerator.LevelType.puzzle;
+                            hasRepeatedCombat = false;
+                        }
+                    }
                 }
             }
         }
-        // DECIDE ENEMY GROUP
-        if (LevelGenerator.levelType == LevelGenerator.LevelType.combat)
+        // DECIDE ENEMY GROUP || Sections Counts
+        if (LevelGenerator.levelType == LevelGenerator.LevelType.combat || LevelGenerator.levelType == LevelGenerator.LevelType.puzzle)
         {
             if (levelCount < 3) //1 && 2
             {

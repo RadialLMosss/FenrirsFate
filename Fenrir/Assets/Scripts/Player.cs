@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
     float speed = 350f;
-    float rbSpeed = 7.5f;
+    float originalRbSpeed = 10f;
+    float rbSpeed = 10f;
     float dashSpeed = 50f;
+    float dashDuration = 0.15f;
     Rigidbody rb;
 
     Vector3 forward, right;
@@ -27,6 +30,7 @@ public class Player : MonoBehaviour
     public GameObject skillTreePanel;
     public LayerMask collectablePrizesLayer;
     public Image lifeBar;
+    public Image lifeBarBG;
 
     private void Awake()
     {
@@ -47,7 +51,7 @@ public class Player : MonoBehaviour
     private float totalTimer = 0.4f;
     private float runningWalkTimer;
     private float runningDashTimer;
-    float dashDuration = 0.13f;
+
 
     // =====================================================================================
 
@@ -76,11 +80,12 @@ public class Player : MonoBehaviour
         if(!Input.GetButton("Horizontal") && !Input.GetButton("Vertical"))
         {
             rb.velocity = Vector3.zero;
+            rbSpeed = originalRbSpeed;
         }
 
         if (runningDashTimer <= 0)
         {
-            if(Input.GetButtonDown("Fire2"))
+            if(Input.GetButtonDown("Fire2") && rbSpeed == originalRbSpeed)
             {
                 StartCoroutine(Dash());
             }
@@ -94,10 +99,9 @@ public class Player : MonoBehaviour
     //Dash
     IEnumerator Dash()
     {
-        float originalSpeed = rbSpeed;
         rbSpeed = dashSpeed;
         yield return new WaitForSeconds(dashDuration);
-        rbSpeed = originalSpeed;
+        rbSpeed = originalRbSpeed;
         runningDashTimer = totalTimer;
     }
 
@@ -142,10 +146,20 @@ public class Player : MonoBehaviour
 
     // =====================================================================================
     static float lifePoints = 10;
-    public void UpdateLifePoints(float value)
+    float totalLifePoints = 10;
+    float defenseValue;
+    public void UpdateLifePoints(float lifeValue)
     {
-        lifePoints += value;
-        lifeBar.fillAmount = lifePoints / 10;
+        if(lifeValue < 0)
+        {
+            lifeValue += lifeValue * defenseValue/10;
+        }
+        lifePoints += lifeValue;
+        if(lifePoints > totalLifePoints)
+        {
+            lifePoints = totalLifePoints;
+        }
+        lifeBar.fillAmount = lifePoints / totalLifePoints;
         if(lifePoints <= 0)
         {
             PlayerDeath();
@@ -193,9 +207,21 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.GetComponent<SpikeTrap>())
+        {
+            SpikeTrap spikeTrap = collision.gameObject.GetComponent<SpikeTrap>();
+            if(spikeTrap.trapType == SpikeTrap.TrapType.IfTouched)
+            {
+                StartCoroutine(spikeTrap.DelayedSpikes());
+            }
+        }
+    }
+
     // ==================================================================================================
 
-    public static void GetCollectablePrizeEffect(CollectablePrize prize)
+    public void GetCollectablePrizeEffect(CollectablePrize prize)
     {
         switch (prize.type)
         {
@@ -203,12 +229,15 @@ public class Player : MonoBehaviour
                 switch (prize.size)
                 {
                     case CollectablePrize.Size.Small:
+                        UpdateLifePoints(2);
                         break;
 
                     case CollectablePrize.Size.Medium:
+                        UpdateLifePoints(4);
                         break;
 
                     case CollectablePrize.Size.Big:
+                        UpdateLifePoints(6);
                         break;
                 }
                 break;
@@ -217,12 +246,15 @@ public class Player : MonoBehaviour
                 switch (prize.size)
                 {
                     case CollectablePrize.Size.Small:
+                        UpdateFuryCurrency(10);
                         break;
 
                     case CollectablePrize.Size.Medium:
+                        UpdateFuryCurrency(15);
                         break;
 
                     case CollectablePrize.Size.Big:
+                        UpdateFuryCurrency(20);
                         break;
                 }
                 break;
@@ -231,12 +263,15 @@ public class Player : MonoBehaviour
                 switch (prize.size)
                 {
                     case CollectablePrize.Size.Small:
+                        UpdateCrystalCurrency(5);
                         break;
 
                     case CollectablePrize.Size.Medium:
+                        UpdateCrystalCurrency(10);
                         break;
 
                     case CollectablePrize.Size.Big:
+                        UpdateCrystalCurrency(15);
                         break;
                 }
                 break;
@@ -245,17 +280,26 @@ public class Player : MonoBehaviour
                 switch (prize.size)
                 {
                     case CollectablePrize.Size.Small:
+                        totalLifePoints += 4;
+                        UpdateLifePoints(0);
+                        //aumenta lifeBarImg
                         break;
 
                     case CollectablePrize.Size.Medium:
+                        totalLifePoints += 6;
+                        UpdateLifePoints(0);
+                        //aumenta lifeBarImg
                         break;
 
                     case CollectablePrize.Size.Big:
+                        totalLifePoints += 8;
+                        UpdateLifePoints(0);
+                        //aumenta lifeBarImg
                         break;
                 }
                 break;
 
-            case CollectablePrize.Type.FuryRune:
+            case CollectablePrize.Type.FuryRune: //damage
                 switch (prize.size)
                 {
                     case CollectablePrize.Size.Small:
@@ -269,16 +313,19 @@ public class Player : MonoBehaviour
                 }
                 break;
 
-            case CollectablePrize.Type.CourageRune:
+            case CollectablePrize.Type.CourageRune: //defense
                 switch (prize.size)
                 {
                     case CollectablePrize.Size.Small:
+                        defenseValue += 1.5f;
                         break;
 
                     case CollectablePrize.Size.Medium:
+                        defenseValue += 2f;
                         break;
 
                     case CollectablePrize.Size.Big:
+                        defenseValue += 2.5f;
                         break;
                 }
                 break;
@@ -310,11 +357,13 @@ public class Player : MonoBehaviour
 
     void PlayerDeath()
     {
+        defenseValue = 0;
         crystals = 0;
         crystalText.text = "CRISTAIS = " + crystals.ToString();
         GameManager.levelCount = -1;
         gameManager.NextLevel(1);
-        lifePoints = 10;
+        totalLifePoints = 10;
+        lifePoints = totalLifePoints;
         UpdateLifePoints(0);
     }
 }

@@ -30,7 +30,7 @@ public class ShopManager : MonoBehaviour
         {
             shopPanel.SetActive(false);
             player.UpdateCrystalCurrency(currentProduct.price);
-            Player.GetCollectablePrizeEffect(currentProduct);
+            player.GetCollectablePrizeEffect(currentProduct);
         }
         else
         {

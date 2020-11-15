@@ -34,31 +34,33 @@ public class Enemy : MonoBehaviour
     }
     private void Update()
     {
-        if(player != null)
+        if (NavMeshAgent != null)
         {
-            if (Vector3.Distance(player.transform.position, transform.position) <= 20)
+            if (player != null)
             {
-                NavMeshAgent.SetDestination(player.transform.position);
-            }
-            else
-            {
-                if (runningTimer >= totalTimer)
+                if (Vector3.Distance(player.transform.position, transform.position) <= 20)
                 {
-                    //random patrol
-                    Vector3 point;
-                    if (RandomPoint(transform.position, range, out point))
-                    {
-                        NavMeshAgent.SetDestination(point);
-                    }
-                    runningTimer = 0;
+                    NavMeshAgent.SetDestination(player.transform.position);
                 }
                 else
                 {
-                    runningTimer += Time.deltaTime;
+                    if (runningTimer >= totalTimer)
+                    {
+                        //random patrol
+                        Vector3 point;
+                        if (RandomPoint(transform.position, range, out point))
+                        {
+                            NavMeshAgent.SetDestination(point);
+                        }
+                        runningTimer = 0;
+                    }
+                    else
+                    {
+                        runningTimer += Time.deltaTime;
+                    }
                 }
             }
         }
-
     }
 
     public void EnemyDeath()
@@ -67,7 +69,7 @@ public class Enemy : MonoBehaviour
         if(Random.Range(0, 3) == 0)
         {
             GameObject crystal = Instantiate(crystalPB, transform.position, Quaternion.identity);
-            Destroy(crystal, 10);
+            Destroy(crystal, 5);
         }
         Player.enemiesToDefeat -= 1;
         Destroy(gameObject);
