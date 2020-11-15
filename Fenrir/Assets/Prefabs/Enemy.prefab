@@ -223,8 +223,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NavMeshAgent: {fileID: 5722015828919104499}
+  rb: {fileID: 5722015828919104497}
   player: {fileID: 0}
   crystalPB: {fileID: 4438069576761163849, guid: 88fb5506270375e44a743dabfc83587e, type: 3}
+  lifePoints: 3
   range: 10
 --- !u!195 &5722015828919104499
 NavMeshAgent:

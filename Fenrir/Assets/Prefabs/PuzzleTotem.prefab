@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 5722015828919104497}
   - component: {fileID: 5722015828919104496}
   m_Layer: 8
-  m_Name: Enemy 1
+  m_Name: PuzzleTotem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,7 +109,7 @@ Transform:
   m_GameObject: {fileID: 5722015828919104498}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 8341958462903468454}
   m_Father: {fileID: 0}
@@ -126,8 +126,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 5.3476696, z: 1}
+  m_Center: {x: 0, y: 2.1738348, z: 0}
 --- !u!54 &5722015828919104497
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -139,7 +139,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
@@ -159,6 +159,7 @@ MonoBehaviour:
   NavMeshAgent: {fileID: 0}
   player: {fileID: 0}
   crystalPB: {fileID: 4438069576761163849, guid: 88fb5506270375e44a743dabfc83587e, type: 3}
+  lifePoints: 1
   range: 10
 --- !u!1 &6129345435371596493
 GameObject:
