@@ -11,7 +11,9 @@ public class Enemy : MonoBehaviour
     float totalTimer = 3;
     float runningTimer;
     public GameObject crystalPB;
-    [SerializeField]private int lifePoints;
+    [SerializeField]private float lifePoints;
+    float baseDefense = 0.5f;
+    float defenseValue;
 
     public float range = 15.0f;
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
@@ -77,18 +79,40 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public GameObject furyOrbPB;
 
+    int bleedCount;
+    bool isBleeding;
 
-    public void TakeDamage(int damage)
+    IEnumerator StartBleeding()
     {
-        lifePoints -= damage;
+        isBleeding = true;
+        lifePoints -= Player.enemyBleedingDamage;
+        yield return new WaitForSeconds(1);
+        bleedCount++;
+        if(bleedCount < 5)
+        {
+            StartCoroutine(StartBleeding());
+        }
+        else
+        {
+            bleedCount = 0;
+            isBleeding = false;
+        }
+    }
+
+
+    public void TakeDamage(float damage, bool shouldBleed)
+    {
+        lifePoints -= (damage - defenseValue);
         if(!shouldAvoidPlayer && !cantAvoidPlayer)
         {
             StartCoroutine(AvoidPlayer());
         }
         if (lifePoints <= 0)
         {
-            player.UpdateFuryCurrency(5);
+            GameObject furyOrb = Instantiate(furyOrbPB, transform.position, Quaternion.identity);
+            furyOrb.GetComponent<FuryOrb>().StartFollowingPlayer(player);
             if (Random.Range(0, 3) == 0)
             {
                 GameObject crystal = Instantiate(crystalPB, transform.position, Quaternion.identity);
@@ -97,6 +121,24 @@ public class Enemy : MonoBehaviour
             Player.enemiesToDefeat -= 1;
             Destroy(gameObject);
         }
+        else
+        {
+            if(shouldBleed && !isBleeding)
+            {
+                StartCoroutine(StartBleeding());
+            }
+            if(damage == Player.strongDamageValue)
+            {
+                StartCoroutine(DefenseDrop());
+            }
+        }
+    }
+
+    public IEnumerator DefenseDrop()
+    {
+        defenseValue = 0;
+        yield return new WaitForSeconds(7.5f);
+        defenseValue = baseDefense;
     }
 
     bool shouldAvoidPlayer;
@@ -115,6 +157,7 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(2);
         cantAvoidPlayer = false;
     }
+
 
 
 

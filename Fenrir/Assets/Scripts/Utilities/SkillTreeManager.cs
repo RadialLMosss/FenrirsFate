@@ -14,7 +14,7 @@ public class SkillTreeManager : MonoBehaviour
     [System.Serializable]
     public class Skill
     {
-        public string skillName;
+        //public string skillName;
         public int skillCost;
         public Button buttonCurrent;
         public Button[] buttonNext;
@@ -24,7 +24,7 @@ public class SkillTreeManager : MonoBehaviour
     {
         Skill skill = skills[skillIndex];
 
-        if (Player.furia > skill.skillCost)
+        if (Player.fury > skill.skillCost)
         {
             player.UpdateFuryCurrency(-skill.skillCost);
 
@@ -39,7 +39,7 @@ public class SkillTreeManager : MonoBehaviour
                     skill.buttonNext[i].GetComponent<Image>().color = Color.white;
                 }
             }
-            ApplySkillEffect(skill.skillName);
+            Player.EnableSkill(skillIndex);
         }
         else
         {
@@ -53,15 +53,6 @@ public class SkillTreeManager : MonoBehaviour
         notEnough_Message.SetActive(true);
         yield return new WaitForSeconds(1.5f);
         notEnough_Message.SetActive(false);
-    }
-
-    void ApplySkillEffect(string skill)
-    {
-        switch(skill)
-        {
-            case "" :
-                break;
-        }
     }
 
     private void OnEnable()

@@ -5,18 +5,18 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    float speed = 350f;
-    float originalRbSpeed = 10f;
-    float rbSpeed = 10f;
+    static float speed = 350f;
+    static float originalRbSpeed = 10f;
+    static float rbSpeed = 10f;
     float dashSpeed = 50f;
-    float dashDuration = 0.15f;
+    static float dashDuration = 0.15f;
     Rigidbody rb;
 
     Vector3 forward, right;
 
     GameManager gameManager;
 
-    [HideInInspector] public static int furia;
+    [HideInInspector] public static int fury;
     [HideInInspector] public static int crystals;
     public static int enemiesToDefeat;
 
@@ -24,27 +24,158 @@ public class Player : MonoBehaviour
     public Text crystalText;
     public ShopManager shopManager;
 
-    public LayerMask enemyLayer;
+    public LayerMask damagableLayers;
     public GameObject attackVol;
+    public GameObject attackVol2;
     public GameObject skillTreePanel;
     public LayerMask collectablePrizesLayer;
     public Image lifeBar;
-    public Image lifeBarBG;
+    public RectTransform lifeBarRect;
+    public RectTransform lifeBarBGRect;
 
-    private float totalTimer = 0.4f;
-    private float runningWalkTimer;
+    private float totalAttackTimer = 0.4f;
+    private static float totalDashTimer = 0.4f;
+    private float runningAttackTimer;
     private float runningDashTimer;
-    static float lifePoints = 10;
-    float totalLifePoints = 10;
-    float defenseValue;
-    int damageValue = 1;
+
+    //To Reset
+    public static float baseLife = 10;
+    public static float baseNormalDamage = 1;
+    public static float baseStrongDamage = 2;
+    public static float baseDefense = 0;
+
+
+    public static float lifePoints = 10;
+    public static float totalLifePoints = 10;
+    public static float defenseValue = 0;
+    public static float normalDamageValue = 1;
+    public static float strongDamageValue = 2;
+    //public static int damageValue = 1;
 
     public Text itemEffectDebug;
+
+    public GameObject lifeRune;
+    public GameObject furyRune;
+    public GameObject courageRune;
+
+    public static bool[] hasSkill;
+
+    int dashCount;
+    static int dashMaxCount = 1;
+    bool isInvicible;
+
+    public static float enemyBleedingDamage = 0.25f;
+    static int crystalsMultipl = 1;
+    static Player playerInst;
+
+    
+
+    public static void EnableSkill(int skillIndex)
+    {
+        hasSkill[skillIndex] = true;
+        switch (skillIndex)
+        {
+            // BRANCH 1 - L
+            case 0: 
+                // Ataque Mordida mais forte
+                strongDamageValue += 1;
+                baseStrongDamage += 1;
+                break;
+
+            case 1: // Ataque Mordida maior alcance
+                break;
+
+            case 2: 
+                // Mordida faz inimigos sofrerem + dano por um tempo
+                // hasSkill[2] set to true is enough
+                break;
+
+            case 3: 
+                // Mordida empurra inimigos (exceto boss)
+                // hasSkill[3] set to true is enough
+                break;
+
+            // BRANCH 2
+            case 4: 
+                // Dash delay menor
+                totalDashTimer /= 2;
+                break;
+
+            case 5: 
+                // Dash percorre maior distância
+                dashDuration *= 2;
+                break;
+
+            case 6: 
+                // Maior Velocidade de Movimento
+                speed *= 1.25f;
+                originalRbSpeed *= 1.25f;
+                rbSpeed *= 1.25f;
+                break;
+
+            case 7: 
+                // Da +1 recarga de Dash
+                dashMaxCount++;
+                break;
+
+            // BRANCH 3
+            case 8: 
+                // Ataque Garra + forte
+                normalDamageValue += 1;
+                baseNormalDamage += 1;
+                break;
+
+            case 9: // Garra pode refletir ataques à distância (exceto boss)
+                break;
+
+            case 10:
+                // Garra faz inimigos sangrarem por um tempo
+                //hasSkill[10] set to true is enough
+                break;
+
+            case 11:
+                // Aumenta dano de sangramento
+                enemyBleedingDamage *= 2;
+                break;
+
+            // BRANCH 4 - R
+            case 12:
+                // - Dano sofrido
+                defenseValue *= 1.2f;
+                baseDefense *= 1.2f;
+                break;
+
+            case 13:
+                // + vida
+                playerInst.EnableSkillMoreLife();
+                break;
+
+            case 14: 
+                // Minérios obtidos
+                crystalsMultipl *= 2;
+                break;
+
+            case 15:
+                // Descontos Ferreiro
+                //hasSkill[15] set to true is enough
+                break;
+        }
+    }
+
+
+    void EnableSkillMoreLife()
+    {
+        baseLife += 4;
+        totalLifePoints = baseLife;
+        lifeBarBGRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifeBarBGRect.rect.width - baseLife * 40);
+        lifeBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifeBarBGRect.rect.width - baseLife * 40);
+    }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
+        playerInst = this;
     }
 
 
@@ -63,35 +194,40 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (runningWalkTimer <= 0)
+        if (runningAttackTimer <= 0)
         {
             if (Input.GetButtonDown("Fire1"))
             {
                 Attack();
-                runningWalkTimer = totalTimer;
+                runningAttackTimer = totalAttackTimer;
+            }
+            else if(Input.GetButtonDown("Fire2"))
+            {
+                Attack2();
+                runningAttackTimer = totalAttackTimer*2;
             }
         }
         else
         {
-            runningWalkTimer -= Time.deltaTime;
+            runningAttackTimer -= Time.deltaTime;
         }
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         if(Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
         {
             Move();
         }
-        if(!Input.GetButton("Horizontal") && !Input.GetButton("Vertical"))
+        if(!Input.GetButton("Horizontal") && !Input.GetButton("Vertical") && (rb.velocity != Vector3.zero || rbSpeed != originalRbSpeed))
         {
             rb.velocity = Vector3.zero;
             rbSpeed = originalRbSpeed;
         }
 
-        if (runningDashTimer <= 0)
+        if (runningDashTimer <= 0 && !isInvicible)
         {
-            if(Input.GetButtonDown("Fire2") && rbSpeed == originalRbSpeed)
+            if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown("Jump")) && rbSpeed == originalRbSpeed)
             {
                 StartCoroutine(Dash());
             }
@@ -102,13 +238,31 @@ public class Player : MonoBehaviour
         }
 
     }
+
     //Dash
     IEnumerator Dash()
     {
+        isInvicible = true;
         rbSpeed = dashSpeed;
         yield return new WaitForSeconds(dashDuration);
         rbSpeed = originalRbSpeed;
-        runningDashTimer = totalTimer;
+        isInvicible = false;
+        dashCount++;
+        if(dashCount >= dashMaxCount)
+        {
+            dashCount = 0;
+            runningDashTimer = totalDashTimer;
+        }
+        else
+        {
+            StartCoroutine(SecondDashTime());
+        }
+    }
+
+    IEnumerator SecondDashTime()
+    {
+        yield return new WaitForSeconds(dashDuration);
+        runningDashTimer = totalDashTimer;
     }
 
     private void Move()
@@ -131,23 +285,42 @@ public class Player : MonoBehaviour
     public void Attack()
     {
         attackVol.SetActive(true);
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 6, enemyLayer);
+        AttackEffect(2f, attackVol.transform, normalDamageValue);
+        StartCoroutine(DisableAttackVol(attackVol));
+    }
+    public void Attack2()
+    {
+        attackVol2.SetActive(true);
+        AttackEffect(3.5f, attackVol2.transform, strongDamageValue * 2);
+        StartCoroutine(DisableAttackVol(attackVol2));
+    }
+    void AttackEffect(float range, Transform damagePoint, float damage)
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(damagePoint.position, range, damagableLayers);
         foreach (Collider hitCollider in hitColliders)
         {
-            hitCollider.GetComponent<Enemy>().TakeDamage(damageValue);
+            if(hitCollider.gameObject.layer == 8)
+            {
+                if(damage == normalDamageValue)
+                {
+                    hitCollider.GetComponent<Enemy>().TakeDamage(damage, hasSkill[10]);
+                }
+                else
+                {
+                    hitCollider.GetComponent<Enemy>().TakeDamage(damage, false);
+                }
+            }
+            else if(hitCollider.gameObject.layer == 9)
+            {
+                hitCollider.GetComponent<CollectablePrize>().OpenChest();
+            }
         }
-
-        Collider[] hitColliders2 = Physics.OverlapSphere(transform.position, 6, collectablePrizesLayer);
-        foreach (Collider hitCollider in hitColliders2)
-        {
-            hitCollider.GetComponent<CollectablePrize>().OpenChest();
-        }
-        StartCoroutine(DisableAttackVol());
     }
-    IEnumerator DisableAttackVol()
+
+    IEnumerator DisableAttackVol(GameObject obj)
     {
         yield return new WaitForSeconds(0.15f);
-        attackVol.SetActive(false);
+        obj.SetActive(false);
     }
 
     // =====================================================================================
@@ -156,7 +329,14 @@ public class Player : MonoBehaviour
     {
         if(lifeValue < 0)
         {
-            lifeValue += lifeValue * defenseValue/10;
+            if(isInvicible)
+            {
+                lifeValue = 0;
+            }
+            else
+            {
+                lifeValue += defenseValue/5;
+            }
         }
         lifePoints += lifeValue;
         if(lifePoints > totalLifePoints)
@@ -298,20 +478,24 @@ public class Player : MonoBehaviour
 
             case CollectablePrize.Type.LifeRune:
                 StartCoroutine(ItemEffectDebug_UI("LifeRune: MaxLife 10 -> 16"));
-                totalLifePoints = 16;
-                lifeBarBG.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 640f);
-                lifeBar.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 640f);
+                totalLifePoints += 6;
+                lifeBarBGRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifeBarBGRect.rect.width - totalLifePoints * 40);
+                lifeBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifeBarBGRect.rect.width - totalLifePoints * 40);
                 UpdateLifePoints(0);
+                lifeRune.SetActive(true);
                 break;
 
             case CollectablePrize.Type.FuryRune: //damage
                 StartCoroutine(ItemEffectDebug_UI("FuryRune: Damage x2"));
-                damageValue = 2; 
+                normalDamageValue += 2;
+                strongDamageValue += 3;
+                furyRune.SetActive(true);
                 break;
 
             case CollectablePrize.Type.CourageRune: //defense
                 StartCoroutine(ItemEffectDebug_UI("CourageRune: Defense x2"));
                 defenseValue = 2.5f;
+                courageRune.SetActive(true);
                 break;
         }
 
@@ -326,17 +510,21 @@ public class Player : MonoBehaviour
         }
     }
 
-
+    
     public void UpdateCrystalCurrency(int value)
     {
+        if(crystals > 0)
+        {
+            value *= crystalsMultipl;
+        }
         crystals += value;
         crystalText.text = "CRISTAIS = " + crystals.ToString();
     }
 
     public void UpdateFuryCurrency(int value)
     {
-        furia += value;
-        furyText.text = "FÚRIA = " + furia.ToString();
+        fury += value;
+        furyText.text = "FÚRIA = " + fury.ToString();
     }
 
     void PlayerDeath()
@@ -344,12 +532,16 @@ public class Player : MonoBehaviour
         GameManager.levelCount = -1;
         gameManager.NextLevel(1);
         UpdateCrystalCurrency(-crystals);
-        defenseValue = 0;
-        damageValue = 1;
-        totalLifePoints = 10;
+        courageRune.SetActive(false);
+        furyRune.SetActive(false);
+        lifeRune.SetActive(false);
+        defenseValue = baseDefense;
+        normalDamageValue = baseNormalDamage;
+        strongDamageValue = baseStrongDamage;
+        totalLifePoints = baseLife;
         lifePoints = totalLifePoints;
-        lifeBarBG.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 400f);
-        lifeBar.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 400f);
+        lifeBarBGRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifeBarBGRect.rect.width - baseLife * 40);
+        lifeBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifeBarBGRect.rect.width - baseLife * 40);
         UpdateLifePoints(0);
     }
 }

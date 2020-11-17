@@ -52,9 +52,18 @@ public class CollectablePrize : MonoBehaviour
         switch(r)
         {
             case 0:
-                type = Type.LifePotion;
-                possibleVisuals[0].SetActive(true);
-                price = prices[0];
+                if (Player.lifePoints == Player.totalLifePoints)
+                {
+                    type = Type.FuryPotion;
+                    possibleVisuals[1].SetActive(true);
+                    price = prices[1];
+                }
+                else
+                {
+                    type = Type.LifePotion;
+                    possibleVisuals[0].SetActive(true);
+                    price = prices[0];
+                }
                 break;
 
             case 1:
@@ -64,21 +73,66 @@ public class CollectablePrize : MonoBehaviour
                 break;
 
             case 2:
-                type = Type.LifeRune;
-                possibleVisuals[3].SetActive(true);
-                price = prices[3];
+                if(Player.totalLifePoints <= Player.baseLife)
+                {
+                    type = Type.LifeRune;
+                    possibleVisuals[3].SetActive(true);
+                    price = prices[3];
+                }
+                else
+                {
+                    if (Player.lifePoints == Player.totalLifePoints)
+                    {
+                        type = Type.FuryPotion;
+                        possibleVisuals[1].SetActive(true);
+                        price = prices[1];
+                    }
+                    else
+                    {
+                        type = Type.LifePotion;
+                        possibleVisuals[0].SetActive(true);
+                        price = prices[0];
+                    }
+                }
                 break;
 
             case 3:
-                type = Type.FuryRune;
-                possibleVisuals[4].SetActive(true);
-                price = prices[4];
+                if(Player.normalDamageValue <= Player.baseNormalDamage)
+                {
+                    type = Type.FuryRune;
+                    possibleVisuals[4].SetActive(true);
+                    price = prices[4];
+                }
+                else
+                {
+                    type = Type.FuryPotion;
+                    possibleVisuals[1].SetActive(true);
+                    price = prices[1];
+                }
                 break;
 
             case 4:
-                type = Type.CourageRune;
-                possibleVisuals[5].SetActive(true);
-                price = prices[5];
+                if(Player.defenseValue <= Player.baseDefense)
+                {
+                    type = Type.CourageRune;
+                    possibleVisuals[5].SetActive(true);
+                    price = prices[5];
+                }
+                else
+                {
+                    if(Random.Range(0, 2) == 0)
+                    {
+                        type = Type.LifePotion;
+                        possibleVisuals[0].SetActive(true);
+                        price = prices[0];
+                    }
+                    else
+                    {
+                        type = Type.FuryPotion;
+                        possibleVisuals[1].SetActive(true);
+                        price = prices[1];
+                    }
+                }
                 break;
         }
         RandomSize();
@@ -90,9 +144,30 @@ public class CollectablePrize : MonoBehaviour
         switch (r)
         {
             case 0:
-                type = Type.LifePotion;
-                possibleVisuals[0].SetActive(true);
-                price = prices[0];
+                if (Player.lifePoints == Player.totalLifePoints)
+                {
+                    int r2 = Random.Range(0, 2);
+                    switch (r2)
+                    {
+                        case 0:
+                            type = Type.CrystalBag;
+                            possibleVisuals[2].SetActive(true);
+                            price = prices[2];
+                            break;
+
+                        case 1:
+                            type = Type.FuryPotion;
+                            possibleVisuals[1].SetActive(true);
+                            price = prices[1];
+                            break;
+                    }
+                }
+                else
+                {
+                    type = Type.LifePotion;
+                    possibleVisuals[0].SetActive(true);
+                    price = prices[0];
+                }
                 break;
 
             case 1:
@@ -106,6 +181,12 @@ public class CollectablePrize : MonoBehaviour
                 possibleVisuals[2].SetActive(true);
                 price = prices[2];
                 break;
+        }
+        if(r != 0 && Player.lifePoints <= Player.totalLifePoints/3)
+        {
+            type = Type.LifePotion;
+            possibleVisuals[0].SetActive(true);
+            price = prices[0];
         }
         RandomSize();
     }
@@ -135,4 +216,5 @@ public class CollectablePrize : MonoBehaviour
             size = Size.Max;
         }
     }
+
 }

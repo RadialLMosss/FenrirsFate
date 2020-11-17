@@ -228,6 +228,7 @@ MonoBehaviour:
   crystalPB: {fileID: 4438069576761163849, guid: 88fb5506270375e44a743dabfc83587e, type: 3}
   lifePoints: 3
   range: 10
+  furyOrbPB: {fileID: 2659894664875394940, guid: a2b165276ab62a84d8a0c8a7f67fa23b, type: 3}
 --- !u!195 &5722015828919104499
 NavMeshAgent:
   m_ObjectHideFlags: 0

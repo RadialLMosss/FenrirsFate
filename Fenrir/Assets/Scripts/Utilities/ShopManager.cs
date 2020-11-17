@@ -16,7 +16,14 @@ public class ShopManager : MonoBehaviour
         shopPanel.SetActive(true);
         currentProduct = product;
         productNameUI.text = product.type.ToString() + " - " + product.size.ToString();
-        productPriceUI.text = product.price.ToString() + " Crystals";
+        if(Player.hasSkill[15]) //has discount
+        {
+            productPriceUI.text = (product.price / 2).ToString() + " Crystals";
+        }
+        else
+        {
+            productPriceUI.text = product.price.ToString() + " Crystals";
+        }
     }
 
     public void CloseShopWindow()
@@ -35,7 +42,7 @@ public class ShopManager : MonoBehaviour
             {
                 playerBuyingPosition = player.transform.position;
             }
-            if(Vector3.Distance(playerBuyingPosition, player.transform.position) > 3.5f)
+            if(Vector3.Distance(playerBuyingPosition, player.transform.position) > 3f)
             {
                 CloseShopWindow();
             }
@@ -44,16 +51,33 @@ public class ShopManager : MonoBehaviour
 
     public void BuyProduct()
     {
-        if(Player.crystals >= currentProduct.price)
+        if (Player.hasSkill[15]) //has discount
         {
-            shopPanel.SetActive(false);
-            player.UpdateCrystalCurrency(-currentProduct.price);
-            player.GetCollectablePrizeEffect(currentProduct);
+            if (Player.crystals >= currentProduct.price/2)
+            {
+                shopPanel.SetActive(false);
+                player.UpdateCrystalCurrency(-currentProduct.price/2);
+                player.GetCollectablePrizeEffect(currentProduct);
+            }
+            else
+            {
+                StartCoroutine(ShowError());
+            }
         }
         else
         {
-            StartCoroutine(ShowError());
+            if (Player.crystals >= currentProduct.price)
+            {
+                shopPanel.SetActive(false);
+                player.UpdateCrystalCurrency(-currentProduct.price);
+                player.GetCollectablePrizeEffect(currentProduct);
+            }
+            else
+            {
+                StartCoroutine(ShowError());
+            }
         }
+
     }
 
     IEnumerator ShowError()

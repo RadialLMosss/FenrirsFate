@@ -157,10 +157,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NavMeshAgent: {fileID: 0}
+  rb: {fileID: 0}
   player: {fileID: 0}
   crystalPB: {fileID: 4438069576761163849, guid: 88fb5506270375e44a743dabfc83587e, type: 3}
   lifePoints: 1
   range: 10
+  furyOrbPB: {fileID: 2659894664875394940, guid: a2b165276ab62a84d8a0c8a7f67fa23b, type: 3}
 --- !u!1 &6129345435371596493
 GameObject:
   m_ObjectHideFlags: 0
