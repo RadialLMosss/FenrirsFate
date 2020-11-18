@@ -12,9 +12,11 @@ public class Enemy : MonoBehaviour
     float runningTimer;
     public GameObject crystalPB;
     [SerializeField]private float lifePoints;
+    private float baseLifePoints;
     float baseDefense = 0.5f;
     float defenseValue;
-
+    public Transform lifeBarContainer;
+    public Transform lifeBar;
     public float range = 15.0f;
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
@@ -36,6 +38,16 @@ public class Enemy : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
     }
+
+    private void Start()
+    {
+        baseLifePoints = lifePoints;
+        if (lifeBar != null)
+        {
+            lifeBar.localScale = new Vector2(lifePoints / baseLifePoints, lifeBar.localScale.y);
+        }
+    }
+
     private void Update()
     {
         if (NavMeshAgent != null)
@@ -56,6 +68,7 @@ public class Enemy : MonoBehaviour
                     {
                         rb.velocity = Vector3.zero;
                     }
+                    lifeBarContainer.LookAt(Camera.main.transform);
                 }
                 else
                 {
@@ -87,7 +100,8 @@ public class Enemy : MonoBehaviour
     IEnumerator StartBleeding()
     {
         isBleeding = true;
-        lifePoints -= Player.enemyBleedingDamage;
+        TakeDamage(Player.enemyBleedingDamage, false);
+        //bleeding's feedback
         yield return new WaitForSeconds(1);
         bleedCount++;
         if(bleedCount < 5)
@@ -105,6 +119,11 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float damage, bool shouldBleed)
     {
         lifePoints -= (damage - defenseValue);
+        if(lifeBar != null)
+        {
+            lifeBar.localScale = new Vector2(lifePoints/baseLifePoints, lifeBar.localScale.y);
+        }
+
         if(!shouldAvoidPlayer && !cantAvoidPlayer)
         {
             StartCoroutine(AvoidPlayer());

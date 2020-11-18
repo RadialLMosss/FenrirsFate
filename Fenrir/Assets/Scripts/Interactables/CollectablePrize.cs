@@ -5,7 +5,7 @@ using UnityEngine;
 public class CollectablePrize : MonoBehaviour
 {
 
-    public enum Version { Shop, Chest}
+    public enum Version { Shop, Chest, LootBox}
     public Version version;
 
     public enum Type { LifePotion, FuryPotion, CrystalBag, LifeRune, FuryRune, CourageRune}
@@ -28,6 +28,11 @@ public class CollectablePrize : MonoBehaviour
         }
         else if(LevelGenerator.levelType == LevelGenerator.LevelType.shop && version == Version.Shop)
         {
+            InitShopVersion();
+        }
+        else if(LevelGenerator.levelType == LevelGenerator.LevelType.shop && version == Version.LootBox)
+        {
+            chestModel.SetActive(true);
             InitShopVersion();
         }
         else

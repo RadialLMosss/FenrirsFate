@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
     public GameObject furyRune;
     public GameObject courageRune;
 
-    public static bool[] hasSkill;
+    public static bool[] hasSkill = new bool[16];
 
     int dashCount;
     static int dashMaxCount = 1;
@@ -167,8 +167,8 @@ public class Player : MonoBehaviour
     {
         baseLife += 4;
         totalLifePoints = baseLife;
-        lifeBarBGRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifeBarBGRect.rect.width - baseLife * 40);
-        lifeBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifeBarBGRect.rect.width - baseLife * 40);
+        lifeBarBGRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, baseLife * 40);
+        lifeBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, baseLife * 40);
     }
 
     private void Awake()
@@ -210,6 +210,11 @@ public class Player : MonoBehaviour
         else
         {
             runningAttackTimer -= Time.deltaTime;
+        }
+
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            skillTreePanel.SetActive(true);
         }
     }
 
@@ -257,6 +262,7 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(SecondDashTime());
         }
+
     }
 
     IEnumerator SecondDashTime()
@@ -381,6 +387,10 @@ public class Player : MonoBehaviour
             {
                 shopManager.ShowShopWindow(prize);
             }
+            else if(prize.version == CollectablePrize.Version.LootBox)
+            {
+                shopManager.ShowLootBoxShopWindow(prize);
+            }
             else
             {
                 if(prize.isChestOpened)
@@ -479,8 +489,8 @@ public class Player : MonoBehaviour
             case CollectablePrize.Type.LifeRune:
                 StartCoroutine(ItemEffectDebug_UI("LifeRune: MaxLife 10 -> 16"));
                 totalLifePoints += 6;
-                lifeBarBGRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifeBarBGRect.rect.width - totalLifePoints * 40);
-                lifeBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifeBarBGRect.rect.width - totalLifePoints * 40);
+                lifeBarBGRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, totalLifePoints * 40);
+                lifeBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, totalLifePoints * 40);
                 UpdateLifePoints(0);
                 lifeRune.SetActive(true);
                 break;
@@ -540,8 +550,8 @@ public class Player : MonoBehaviour
         strongDamageValue = baseStrongDamage;
         totalLifePoints = baseLife;
         lifePoints = totalLifePoints;
-        lifeBarBGRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifeBarBGRect.rect.width - baseLife * 40);
-        lifeBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifeBarBGRect.rect.width - baseLife * 40);
+        lifeBarBGRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, baseLife * 40);
+        lifeBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, baseLife * 40);
         UpdateLifePoints(0);
     }
 }

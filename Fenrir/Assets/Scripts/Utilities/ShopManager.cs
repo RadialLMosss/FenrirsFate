@@ -8,9 +8,15 @@ public class ShopManager : MonoBehaviour
     public GameObject shopPanel;
     public Text productNameUI;
     public Text productPriceUI;
-    public Player player;
+
+    public GameObject shopPanelLootBox;
+    public Text productNameUILootBox;
+    public Text productPriceUILootBox;
+
     public GameObject errorMessage;
+    public Player player;
     CollectablePrize currentProduct;
+
     public void ShowShopWindow(CollectablePrize product)
     {
         shopPanel.SetActive(true);
@@ -24,6 +30,14 @@ public class ShopManager : MonoBehaviour
         {
             productPriceUI.text = product.price.ToString() + " Crystals";
         }
+    }
+
+    public void ShowLootBoxShopWindow(CollectablePrize product)
+    {
+        shopPanelLootBox.SetActive(true);
+        currentProduct = product;
+        productNameUILootBox.text = product.type.ToString() + " - " + product.size.ToString();
+        productPriceUILootBox.text = product.price.ToString() + " $$$$$";
     }
 
     public void CloseShopWindow()
@@ -47,6 +61,23 @@ public class ShopManager : MonoBehaviour
                 CloseShopWindow();
             }
         }
+    }
+
+
+    public void BuyProductLootBox()
+    {
+        /*
+        if (Player.crystals >= currentProduct.price)
+        {
+            shopPanel.SetActive(false);
+            player.UpdateCrystalCurrency(-currentProduct.price);
+            player.GetCollectablePrizeEffect(currentProduct);
+        }
+        else
+        {
+            StartCoroutine(ShowError());
+        }
+        */
     }
 
     public void BuyProduct()
