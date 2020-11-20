@@ -25,12 +25,9 @@ public class Player : MonoBehaviour
     public ShopManager shopManager;
 
     public LayerMask damagableLayers;
-    public GameObject attackVol;
-    public GameObject attackVol2;
     public GameObject skillTreePanel;
     public LayerMask collectablePrizesLayer;
     public Image lifeBar;
-    public RectTransform lifeBarRect;
 
     private float totalAttackTimer = 0.4f;
     private static float totalDashTimer = 0.4f;
@@ -51,6 +48,7 @@ public class Player : MonoBehaviour
     public static float strongDamageValue = 2;
     //public static int damageValue = 1;
 
+    public GameObject attackVol;
 
     public GameObject lifeRune;
     public GameObject furyRune;
@@ -66,7 +64,11 @@ public class Player : MonoBehaviour
     static int crystalsMultipl = 1;
     static Player playerInst;
 
-    
+    public bool playing = false;
+    public Animator anim;
+    public AudioSource audioSource;
+    public AudioSource audioSourceFootsteps;
+    public AudioClip[] clips;
 
     public static void EnableSkill(int skillIndex)
     {
@@ -165,7 +167,6 @@ public class Player : MonoBehaviour
     {
         baseLife += 4;
         totalLifePoints = baseLife;
-        lifeBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, baseLife * 40);
     }
 
     private void Awake()
@@ -213,6 +214,7 @@ public class Player : MonoBehaviour
         {
             skillTreePanel.SetActive(true);
         }
+        
     }
 
     void FixedUpdate()
@@ -223,8 +225,10 @@ public class Player : MonoBehaviour
         }
         if(!Input.GetButton("Horizontal") && !Input.GetButton("Vertical") && (rb.velocity != Vector3.zero || rbSpeed != originalRbSpeed))
         {
+            audioSourceFootsteps.mute = true;
             rb.velocity = Vector3.zero;
             rbSpeed = originalRbSpeed;
+            anim.SetBool("isWalking", false);
         }
 
         if (runningDashTimer <= 0 && !isInvicible)
@@ -246,6 +250,8 @@ public class Player : MonoBehaviour
     {
         isInvicible = true;
         rbSpeed = dashSpeed;
+        anim.SetTrigger("Dash");
+        audioSource.PlayOneShot(clips[2]);
         yield return new WaitForSeconds(dashDuration);
         rbSpeed = originalRbSpeed;
         isInvicible = false;
@@ -279,21 +285,29 @@ public class Player : MonoBehaviour
             return;
 
         transform.forward = heading;
-
+        anim.SetBool("isWalking", true);
+        audioSourceFootsteps.mute = false;
         rb.velocity = heading * rbSpeed;
     }
 
     public void Attack()
     {
-        attackVol.SetActive(true);
-        AttackEffect(2f, attackVol.transform, normalDamageValue);
-        StartCoroutine(DisableAttackVol(attackVol));
+        if(Random.Range(0, 2) == 0)
+        {
+            anim.SetTrigger("Claw");
+        }
+        else
+        {
+            anim.SetTrigger("Claw2");
+        }
+        audioSource.PlayOneShot(clips[1]);
+        AttackEffect(2.5f, attackVol.transform, normalDamageValue);
     }
     public void Attack2()
     {
-        attackVol2.SetActive(true);
-        AttackEffect(3.5f, attackVol2.transform, strongDamageValue * 2);
-        StartCoroutine(DisableAttackVol(attackVol2));
+        anim.SetTrigger("Bite");
+        audioSource.PlayOneShot(clips[0]);
+        AttackEffect(2.5f, attackVol.transform, strongDamageValue);
     }
     void AttackEffect(float range, Transform damagePoint, float damage)
     {
@@ -316,12 +330,6 @@ public class Player : MonoBehaviour
                 hitCollider.GetComponent<CollectablePrize>().OpenChest();
             }
         }
-    }
-
-    IEnumerator DisableAttackVol(GameObject obj)
-    {
-        yield return new WaitForSeconds(0.15f);
-        obj.SetActive(false);
     }
 
     // =====================================================================================
@@ -347,8 +355,19 @@ public class Player : MonoBehaviour
         lifeBar.fillAmount = lifePoints / totalLifePoints;
         if(lifePoints <= 0)
         {
-            PlayerDeath();
+            playing = false;
+            audioSource.PlayOneShot(clips[3]);
+            anim.SetTrigger("Death");
+            StartCoroutine(DieDelay());
         }
+    }
+
+    IEnumerator DieDelay()
+    {
+        rbSpeed = 0;
+        yield return new WaitForSeconds(1);
+        PlayerDeath();
+        rbSpeed = originalRbSpeed;
     }
 
     bool isGoingToOtherLevel;
@@ -367,7 +386,7 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(NextLevelDelay(other, 1));
         }
-        else if(other.CompareTag("Finish2") && isGoingToOtherLevel)
+        else if(other.CompareTag("Finish2") && !isGoingToOtherLevel)
         {
             StartCoroutine(NextLevelDelay(other, 2));
         }
@@ -379,6 +398,7 @@ public class Player : MonoBehaviour
         {
             Destroy(other.gameObject);
             UpdateCrystalCurrency(10);
+            audioSource.PlayOneShot(clips[5]);
         }
         else if(other.CompareTag("SkillTreePoint"))
         {
@@ -422,6 +442,7 @@ public class Player : MonoBehaviour
 
     public void GetCollectablePrizeEffect(CollectablePrize prize)
     {
+        audioSource.PlayOneShot(clips[7]);
         switch (prize.type)
         {
             case CollectablePrize.Type.LifeOrbs:
@@ -477,7 +498,6 @@ public class Player : MonoBehaviour
 
             case CollectablePrize.Type.LifeRune:
                 totalLifePoints += 6;
-                lifeBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, totalLifePoints * 40);
                 UpdateLifePoints(0);
                 lifeRune.SetActive(true);
                 break;
@@ -535,7 +555,6 @@ public class Player : MonoBehaviour
         strongDamageValue = baseStrongDamage;
         totalLifePoints = baseLife;
         lifePoints = totalLifePoints;
-        lifeBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, baseLife * 40);
         UpdateLifePoints(0);
     }
 }

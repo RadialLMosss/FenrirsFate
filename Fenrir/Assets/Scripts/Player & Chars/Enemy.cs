@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent NavMeshAgent;
     public Rigidbody rb;
     public Player player;
+    public Animator anim;
     float totalTimer = 3;
     float runningTimer;
     public GameObject crystalPB;
@@ -18,6 +19,9 @@ public class Enemy : MonoBehaviour
     public Transform lifeBarContainer;
     public Transform lifeBar;
     public float range = 15.0f;
+    public AudioSource audioSource;
+    public AudioClip[] clips;
+
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
         for (int i = 0; i < 30; i++)
@@ -47,6 +51,16 @@ public class Enemy : MonoBehaviour
             lifeBar.localScale = new Vector2(lifePoints / baseLifePoints, lifeBar.localScale.y);
         }
     }
+    bool isAttacking;
+
+    IEnumerator Attack()
+    {
+        isAttacking = true;
+        anim.SetTrigger("Attack");
+        audioSource.PlayOneShot(clips[0]);
+        yield return new WaitForSeconds(0.75f);
+        isAttacking = false;
+    }
 
     private void Update()
     {
@@ -59,6 +73,10 @@ public class Enemy : MonoBehaviour
                     if (!shouldAvoidPlayer)
                     {
                         NavMeshAgent.SetDestination(player.transform.position);
+                        if(Vector3.Distance(player.transform.position, transform.position) <= 2 && !isAttacking)
+                        {
+                            StartCoroutine(Attack());
+                        }
                     }
                     else
                     {
@@ -89,8 +107,20 @@ public class Enemy : MonoBehaviour
                     }
                 }
             }
+            if(NavMeshAgent.speed != 0 && !isWalking)
+            {
+                isWalking = true;
+                anim.SetBool("isWalking", true);
+            }
+            else if(NavMeshAgent.speed == 0 && isWalking)
+            {
+                isWalking = false;
+                anim.SetBool("isWalking", false);
+            }
         }
     }
+
+    bool isWalking;
 
     public GameObject furyOrbPB;
 
@@ -119,7 +149,11 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float damage, bool shouldBleed)
     {
         lifePoints -= (damage - defenseValue);
-        if(lifeBar != null)
+        if (lifePoints < 0)
+        {
+            lifePoints = 0;
+        }
+        if (lifeBar != null)
         {
             lifeBar.localScale = new Vector2(lifePoints/baseLifePoints, lifeBar.localScale.y);
         }
@@ -138,11 +172,20 @@ public class Enemy : MonoBehaviour
                 Destroy(crystal, 5);
             }
             Player.enemiesToDefeat -= 1;
-            Destroy(gameObject);
+            if(NavMeshAgent != null)
+            {
+                anim.SetTrigger("Death");
+                Destroy(gameObject, 1f);
+            }
+            else //is totem
+            {
+                Destroy(gameObject);
+            }
         }
         else
         {
-            if(shouldBleed && !isBleeding)
+            anim.SetTrigger("Hit");
+            if (shouldBleed && !isBleeding)
             {
                 StartCoroutine(StartBleeding());
             }
@@ -152,6 +195,7 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+
 
     public IEnumerator DefenseDrop()
     {
