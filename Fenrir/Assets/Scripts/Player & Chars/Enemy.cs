@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
                     if (!shouldAvoidPlayer)
                     {
                         NavMeshAgent.SetDestination(player.transform.position);
-                        if(Vector3.Distance(player.transform.position, transform.position) <= 2 && !isAttacking)
+                        if(Vector3.Distance(player.transform.position, transform.position) <= 3 && !isAttacking)
                         {
                             StartCoroutine(Attack());
                         }

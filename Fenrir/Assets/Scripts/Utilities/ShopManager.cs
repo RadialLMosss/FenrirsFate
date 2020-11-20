@@ -38,7 +38,7 @@ public class ShopManager : MonoBehaviour
         shopPanelLootBox.SetActive(true);
         currentProduct = product;
         productNameUILootBox.text = product.type.ToString() + " - " + product.size.ToString();
-        productPriceUILootBox.text = product.price.ToString() + " Fúria";
+        productPriceUILootBox.text = (product.price * 20).ToString() + " Fúria";
     }
 
     public void CloseShopWindow()
@@ -73,10 +73,10 @@ public class ShopManager : MonoBehaviour
 
     public void BuyProductLootBox()
     {
-        if (Player.fury >= currentProduct.price * 30)
+        if (Player.fury >= currentProduct.price * 20)
         {
             shopPanel.SetActive(false);
-            player.UpdateFuryCurrency(-currentProduct.price * 30);
+            player.UpdateFuryCurrency(-currentProduct.price * 20);
             player.GetCollectablePrizeEffect(currentProduct);
         }
         else
@@ -113,7 +113,6 @@ public class ShopManager : MonoBehaviour
                 StartCoroutine(ShowError());
             }
         }
-
     }
 
     IEnumerator ShowErrorLootBox()

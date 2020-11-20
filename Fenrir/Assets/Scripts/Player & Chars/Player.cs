@@ -190,6 +190,7 @@ public class Player : MonoBehaviour
 
     // =====================================================================================
     bool cantMove;
+    public GameObject pausedPanel;
     private void Update()
     {
         if (runningAttackTimer <= 0)
@@ -212,9 +213,22 @@ public class Player : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.T))
         {
-            skillTreePanel.SetActive(true);
+            skillTreePanel.SetActive(!skillTreePanel.activeSelf);
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            pausedPanel.SetActive(!pausedPanel.activeSelf);
+            if(Time.timeScale != 0)
+            {
+                Time.timeScale = 0;
+            }
+            else
+            {
+                Time.timeScale = 1;
+            }
+        }
+
     }
 
     void FixedUpdate()
@@ -342,12 +356,21 @@ public class Player : MonoBehaviour
     }
 
     // =====================================================================================
+    bool cantBeDamaged;
+
+    IEnumerator DamageRecovery()
+    {
+        cantBeDamaged = true;
+        yield return new WaitForSeconds(1.5f);
+        cantBeDamaged = false;
+    }
+
 
     public void UpdateLifePoints(float lifeValue)
     {
         if(lifeValue < 0)
         {
-            if(isInvicible)
+            if(isInvicible || cantBeDamaged)
             {
                 lifeValue = 0;
             }
@@ -355,6 +378,7 @@ public class Player : MonoBehaviour
             {
                 lifeValue += defenseValue/5;
             }
+            StartCoroutine(DamageRecovery());
         }
         lifePoints += lifeValue;
         if(lifePoints > totalLifePoints)
@@ -379,7 +403,7 @@ public class Player : MonoBehaviour
         mainCamera.gameObject.SetActive(false);
         rbSpeed = 0;
         anim.Play("Unchain");
-        yield return new WaitForSeconds(8.5f);
+        yield return new WaitForSeconds(9f);
         rbSpeed = originalRbSpeed;
         mainCamera.gameObject.SetActive(true);
         cineCamera.SetActive(false);
