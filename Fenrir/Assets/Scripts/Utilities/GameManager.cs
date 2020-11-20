@@ -6,12 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // progression markers (room index where things get different && HOW it get different)
-    // maybe make it a list of classes and every time the player get to go to a new room we see if there is a marker there
-    // difficulty boost, biome change, boss, dialogue box, shop...
-
-    [SerializeField] Text levelCountText = null;
-    [SerializeField] Text levelTypeText = null;
     [HideInInspector] public static int levelCount = -1;
     [SerializeField] LevelGenerator levelGenerator = null;
     bool hasRepeatedCombat;
@@ -154,8 +148,6 @@ public class GameManager : MonoBehaviour
         }
 
         levelCount++;
-        levelCountText.text = levelCount.ToString();
-        levelTypeText.text = LevelGenerator.levelType.ToString();
         levelGenerator.StartGenerator();
     }
 }

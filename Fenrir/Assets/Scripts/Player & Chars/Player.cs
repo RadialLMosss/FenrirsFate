@@ -31,7 +31,6 @@ public class Player : MonoBehaviour
     public LayerMask collectablePrizesLayer;
     public Image lifeBar;
     public RectTransform lifeBarRect;
-    public RectTransform lifeBarBGRect;
 
     private float totalAttackTimer = 0.4f;
     private static float totalDashTimer = 0.4f;
@@ -52,7 +51,6 @@ public class Player : MonoBehaviour
     public static float strongDamageValue = 2;
     //public static int damageValue = 1;
 
-    public Text itemEffectDebug;
 
     public GameObject lifeRune;
     public GameObject furyRune;
@@ -167,7 +165,6 @@ public class Player : MonoBehaviour
     {
         baseLife += 4;
         totalLifePoints = baseLife;
-        lifeBarBGRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, baseLife * 40);
         lifeBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, baseLife * 40);
     }
 
@@ -353,17 +350,26 @@ public class Player : MonoBehaviour
             PlayerDeath();
         }
     }
+
+    bool isGoingToOtherLevel;
+    IEnumerator NextLevelDelay(Collider coll, int levelIndex)
+    {
+        isGoingToOtherLevel = true;
+        yield return new WaitForSeconds(0.75f);
+        coll.gameObject.SetActive(false);
+        gameManager.NextLevel(levelIndex);
+        isGoingToOtherLevel = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Finish"))
+        if(other.CompareTag("Finish") && !isGoingToOtherLevel)
         {
-            other.gameObject.SetActive(false);
-            gameManager.NextLevel(1);
+            StartCoroutine(NextLevelDelay(other, 1));
         }
-        else if(other.CompareTag("Finish2"))
+        else if(other.CompareTag("Finish2") && isGoingToOtherLevel)
         {
-            other.gameObject.SetActive(false);
-            gameManager.NextLevel(2);
+            StartCoroutine(NextLevelDelay(other, 2));
         }
         else if(other.CompareTag("Damage"))
         {
@@ -413,12 +419,6 @@ public class Player : MonoBehaviour
 
     // ==================================================================================================
     
-    IEnumerator ItemEffectDebug_UI(string description)
-    {
-        itemEffectDebug.text = description;
-        yield return new WaitForSeconds(3);
-        itemEffectDebug.text = "...";
-    }
 
     public void GetCollectablePrizeEffect(CollectablePrize prize)
     {
@@ -428,17 +428,14 @@ public class Player : MonoBehaviour
                 switch (prize.size)
                 {
                     case CollectablePrize.Size.Small:
-                        StartCoroutine(ItemEffectDebug_UI("LifePotionSmall: +2 HP"));
                         UpdateLifePoints(2);
                         break;
 
                     case CollectablePrize.Size.Medium:
-                        StartCoroutine(ItemEffectDebug_UI("LifePotionMedium: +4 HP"));
                         UpdateLifePoints(4);
                         break;
 
                     case CollectablePrize.Size.Big:
-                        StartCoroutine(ItemEffectDebug_UI("LifePotionBig: +6 HP"));
                         UpdateLifePoints(6);
                         break;
                 }
@@ -448,17 +445,14 @@ public class Player : MonoBehaviour
                 switch (prize.size)
                 {
                     case CollectablePrize.Size.Small:
-                        StartCoroutine(ItemEffectDebug_UI("FuryPotionSmall: +10 Fury"));
                         UpdateFuryCurrency(10);
                         break;
 
                     case CollectablePrize.Size.Medium:
-                        StartCoroutine(ItemEffectDebug_UI("FuryPotionMedium: +15 Fury"));
                         UpdateFuryCurrency(15);
                         break;
 
                     case CollectablePrize.Size.Big:
-                        StartCoroutine(ItemEffectDebug_UI("FuryPotionBig: +20 Fury"));
                         UpdateFuryCurrency(20);
                         break;
                 }
@@ -468,40 +462,33 @@ public class Player : MonoBehaviour
                 switch (prize.size)
                 {
                     case CollectablePrize.Size.Small:
-                        StartCoroutine(ItemEffectDebug_UI("CrystalBagSmall: +5 Crystals"));
                         UpdateCrystalCurrency(5);
                         break;
 
                     case CollectablePrize.Size.Medium:
-                        StartCoroutine(ItemEffectDebug_UI("CrystalBagSmall: +10 Crystals"));
                         UpdateCrystalCurrency(10);
                         break;
 
                     case CollectablePrize.Size.Big:
-                        StartCoroutine(ItemEffectDebug_UI("CrystalBagSmall: +15 Crystals"));
                         UpdateCrystalCurrency(15);
                         break;
                 }
                 break;
 
             case CollectablePrize.Type.LifeRune:
-                StartCoroutine(ItemEffectDebug_UI("LifeRune: MaxLife 10 -> 16"));
                 totalLifePoints += 6;
-                lifeBarBGRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, totalLifePoints * 40);
                 lifeBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, totalLifePoints * 40);
                 UpdateLifePoints(0);
                 lifeRune.SetActive(true);
                 break;
 
             case CollectablePrize.Type.FuryRune: //damage
-                StartCoroutine(ItemEffectDebug_UI("FuryRune: Damage x2"));
                 normalDamageValue += 2;
                 strongDamageValue += 3;
                 furyRune.SetActive(true);
                 break;
 
             case CollectablePrize.Type.CourageRune: //defense
-                StartCoroutine(ItemEffectDebug_UI("CourageRune: Defense x2"));
                 defenseValue = 2.5f;
                 courageRune.SetActive(true);
                 break;
@@ -526,13 +513,13 @@ public class Player : MonoBehaviour
             value *= crystalsMultipl;
         }
         crystals += value;
-        crystalText.text = "CRISTAIS = " + crystals.ToString();
+        crystalText.text = crystals.ToString() + "x";
     }
 
     public void UpdateFuryCurrency(int value)
     {
         fury += value;
-        furyText.text = "FÚRIA = " + fury.ToString();
+        furyText.text = fury.ToString() + "x";
     }
 
     void PlayerDeath()
@@ -548,7 +535,6 @@ public class Player : MonoBehaviour
         strongDamageValue = baseStrongDamage;
         totalLifePoints = baseLife;
         lifePoints = totalLifePoints;
-        lifeBarBGRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, baseLife * 40);
         lifeBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, baseLife * 40);
         UpdateLifePoints(0);
     }
