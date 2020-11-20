@@ -453,7 +453,7 @@ public class Player_PostPTest : MonoBehaviour
         audioSource.PlayOneShot(clips[7]);
         switch (prize.type)
         {
-            case CollectablePrize.Type.LifePotion:
+            case CollectablePrize.Type.LifeOrbs:
                 switch (prize.size)
                 {
                     case CollectablePrize.Size.Small:
@@ -473,7 +473,7 @@ public class Player_PostPTest : MonoBehaviour
                 }
                 break;
 
-            case CollectablePrize.Type.FuryPotion:
+            case CollectablePrize.Type.FuryOrbs:
                 switch (prize.size)
                 {
                     case CollectablePrize.Size.Small:

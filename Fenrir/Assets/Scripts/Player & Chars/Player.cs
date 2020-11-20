@@ -283,8 +283,6 @@ public class Player : MonoBehaviour
 
         transform.forward = heading;
 
-        //transform.position += rightMovement;
-        //transform.position += upMovement;
         rb.velocity = heading * rbSpeed;
     }
 
@@ -426,7 +424,7 @@ public class Player : MonoBehaviour
     {
         switch (prize.type)
         {
-            case CollectablePrize.Type.LifePotion:
+            case CollectablePrize.Type.LifeOrbs:
                 switch (prize.size)
                 {
                     case CollectablePrize.Size.Small:
@@ -446,7 +444,7 @@ public class Player : MonoBehaviour
                 }
                 break;
 
-            case CollectablePrize.Type.FuryPotion:
+            case CollectablePrize.Type.FuryOrbs:
                 switch (prize.size)
                 {
                     case CollectablePrize.Size.Small:

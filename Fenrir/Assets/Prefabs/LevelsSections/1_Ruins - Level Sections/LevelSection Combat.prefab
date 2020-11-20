@@ -2240,8 +2240,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8251876369131680749}
   - component: {fileID: 6876058416556258846}
-  - component: {fileID: 8020368913060355819}
   - component: {fileID: 7246105651525715835}
+  - component: {fileID: 6964364963286824890}
   m_Layer: 0
   m_Name: NorthSensor
   m_TagString: SectionSensor
@@ -2276,20 +2276,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8020368913060355819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2811301300812289062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cadb71d659ad9a47a26c85dab00e426, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sectionWall: {fileID: 2826280476233658238}
-  isConnected: 0
 --- !u!54 &7246105651525715835
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2306,6 +2292,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6964364963286824890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2811301300812289062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cadb71d659ad9a47a26c85dab00e426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sectionWall: {fileID: 2826280476233658238}
+  isConnected: 0
 --- !u!1 &2826280476233658238
 GameObject:
   m_ObjectHideFlags: 0
@@ -2324,7 +2324,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4999968389513786192
 Transform:
   m_ObjectHideFlags: 0
@@ -2366,7 +2366,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 939d9e8131454534e8389bc4a5876857, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3672,7 +3672,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3587224390019191484
 Transform:
   m_ObjectHideFlags: 0
@@ -3714,7 +3714,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 939d9e8131454534e8389bc4a5876857, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3856,7 +3856,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 939d9e8131454534e8389bc4a5876857, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6192,8 +6192,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8732764848174227936}
   - component: {fileID: 854202265751361040}
-  - component: {fileID: 3216398314521666509}
   - component: {fileID: 1107116130898051756}
+  - component: {fileID: 2013016735349297906}
   m_Layer: 0
   m_Name: WestSensor
   m_TagString: SectionSensor
@@ -6228,20 +6228,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3216398314521666509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7480093243433787552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cadb71d659ad9a47a26c85dab00e426, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sectionWall: {fileID: 4399453848212860781}
-  isConnected: 0
 --- !u!54 &1107116130898051756
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6258,6 +6244,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2013016735349297906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7480093243433787552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cadb71d659ad9a47a26c85dab00e426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sectionWall: {fileID: 4399453848212860781}
+  isConnected: 0
 --- !u!1 &7485029270066370269
 GameObject:
   m_ObjectHideFlags: 0
@@ -6733,10 +6733,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sectionSensors:
-  - {fileID: 8020368913060355819}
+  - {fileID: 6964364963286824890}
   - {fileID: 3317045988654228799}
   - {fileID: 4992569980688178724}
-  - {fileID: 3216398314521666509}
+  - {fileID: 2013016735349297906}
   sectionTemplates:
   - {fileID: 3884892617788755520}
   - {fileID: 2651238255034851320}
@@ -6854,7 +6854,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 939d9e8131454534e8389bc4a5876857, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

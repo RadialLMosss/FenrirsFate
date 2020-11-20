@@ -8,7 +8,7 @@ public class CollectablePrize : MonoBehaviour
     public enum Version { Shop, Chest, LootBox}
     public Version version;
 
-    public enum Type { LifePotion, FuryPotion, CrystalBag, LifeRune, FuryRune, CourageRune}
+    public enum Type { LifeOrbs, FuryOrbs, CrystalBag, LifeRune, FuryRune, CourageRune}
     [HideInInspector] public Type type;
 
     public enum Size { Small, Medium, Big, Max}
@@ -59,20 +59,20 @@ public class CollectablePrize : MonoBehaviour
             case 0:
                 if (Player.lifePoints == Player.totalLifePoints)
                 {
-                    type = Type.FuryPotion;
+                    type = Type.FuryOrbs;
                     possibleVisuals[1].SetActive(true);
                     price = prices[1];
                 }
                 else
                 {
-                    type = Type.LifePotion;
+                    type = Type.LifeOrbs;
                     possibleVisuals[0].SetActive(true);
                     price = prices[0];
                 }
                 break;
 
             case 1:
-                type = Type.FuryPotion;
+                type = Type.FuryOrbs;
                 possibleVisuals[1].SetActive(true);
                 price = prices[1];
                 break;
@@ -88,13 +88,13 @@ public class CollectablePrize : MonoBehaviour
                 {
                     if (Player.lifePoints == Player.totalLifePoints)
                     {
-                        type = Type.FuryPotion;
+                        type = Type.FuryOrbs;
                         possibleVisuals[1].SetActive(true);
                         price = prices[1];
                     }
                     else
                     {
-                        type = Type.LifePotion;
+                        type = Type.LifeOrbs;
                         possibleVisuals[0].SetActive(true);
                         price = prices[0];
                     }
@@ -110,7 +110,7 @@ public class CollectablePrize : MonoBehaviour
                 }
                 else
                 {
-                    type = Type.FuryPotion;
+                    type = Type.FuryOrbs;
                     possibleVisuals[1].SetActive(true);
                     price = prices[1];
                 }
@@ -127,13 +127,13 @@ public class CollectablePrize : MonoBehaviour
                 {
                     if(Random.Range(0, 2) == 0)
                     {
-                        type = Type.LifePotion;
+                        type = Type.LifeOrbs;
                         possibleVisuals[0].SetActive(true);
                         price = prices[0];
                     }
                     else
                     {
-                        type = Type.FuryPotion;
+                        type = Type.FuryOrbs;
                         possibleVisuals[1].SetActive(true);
                         price = prices[1];
                     }
@@ -161,7 +161,7 @@ public class CollectablePrize : MonoBehaviour
                             break;
 
                         case 1:
-                            type = Type.FuryPotion;
+                            type = Type.FuryOrbs;
                             possibleVisuals[1].SetActive(true);
                             price = prices[1];
                             break;
@@ -169,14 +169,14 @@ public class CollectablePrize : MonoBehaviour
                 }
                 else
                 {
-                    type = Type.LifePotion;
+                    type = Type.LifeOrbs;
                     possibleVisuals[0].SetActive(true);
                     price = prices[0];
                 }
                 break;
 
             case 1:
-                type = Type.FuryPotion;
+                type = Type.FuryOrbs;
                 possibleVisuals[1].SetActive(true);
                 price = prices[1];
                 break;
@@ -189,7 +189,7 @@ public class CollectablePrize : MonoBehaviour
         }
         if(r != 0 && Player.lifePoints <= Player.totalLifePoints/3)
         {
-            type = Type.LifePotion;
+            type = Type.LifeOrbs;
             possibleVisuals[0].SetActive(true);
             price = prices[0];
         }

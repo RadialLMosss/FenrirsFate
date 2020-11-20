@@ -14,8 +14,11 @@ public class SectionSensor : MonoBehaviour
     {
         if(other.CompareTag("SectionSensor"))
         {
-            sectionWall.SetActive(false);
             isConnected = true;
+            if(sectionWall != null)
+            {
+                sectionWall.SetActive(false);
+            }
         }
     }
 }

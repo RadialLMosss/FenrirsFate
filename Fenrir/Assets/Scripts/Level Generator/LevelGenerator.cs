@@ -248,7 +248,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void ResetPlayerPosition()
     {
-        playerTransform.position = new Vector3(levelSections[0].transform.position.x, 1, levelSections[0].transform.position.z);
+        playerTransform.position = new Vector3(levelSections[0].transform.position.x, 1.5f, levelSections[0].transform.position.z);
         playerCollider.enabled = true;
         levelTransitionScreen.gameObject.SetActive(false);
         water.SetActive(true);

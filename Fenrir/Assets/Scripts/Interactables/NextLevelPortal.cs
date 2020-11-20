@@ -5,10 +5,19 @@ using UnityEngine;
 public class NextLevelPortal : MonoBehaviour
 {
     public static bool canUpdate;
+    public Material[] magicCircleMaterials;
+    public MeshRenderer meshRender;
+    public GameObject swordOnTop;
+    public GameObject shopIconOnTop;
+    public MagicCircleRotate rotateScript;
+
     void Start()
     {
-        GetComponent<MeshRenderer>().material.color = Color.black;
+        meshRender.material = magicCircleMaterials[2];
         GetComponent<Collider>().enabled = false;
+        shopIconOnTop.SetActive(false);
+        swordOnTop.SetActive(false);
+        rotateScript.enabled = false;
     }
 
     private void Update()
@@ -21,12 +30,12 @@ public class NextLevelPortal : MonoBehaviour
                 {
                     if (gameObject.CompareTag("Finish"))
                     {
-                        //Show that the next level will be of type "Shop"
-                        GetComponent<MeshRenderer>().material.color = Color.cyan;
+                        meshRender.material = magicCircleMaterials[1];
+                        shopIconOnTop.SetActive(true);
                     }
                     else
                     {
-                        GetComponent<MeshRenderer>().material.color = Color.white;
+                        meshRender.material = magicCircleMaterials[0];
                     }
                 }
                 else if (GameManager.levelCount == 0 || GameManager.levelCount == 9)
@@ -37,17 +46,19 @@ public class NextLevelPortal : MonoBehaviour
                     }
                     else if (gameObject.CompareTag("Finish2") && GameManager.levelCount == 9)
                     {
-                        GetComponent<MeshRenderer>().material.color = Color.magenta;
+                        meshRender.material = magicCircleMaterials[0];
+                        swordOnTop.SetActive(true);
                     }
                     else
                     {
-                        GetComponent<MeshRenderer>().material.color = Color.white;
+                        meshRender.material = magicCircleMaterials[0];
                     }
                 }
                 else
                 {
-                    GetComponent<MeshRenderer>().material.color = Color.white;
+                    meshRender.material = magicCircleMaterials[0];
                 }
+                rotateScript.enabled = true;
                 GetComponent<Collider>().enabled = true;
             }
         }
