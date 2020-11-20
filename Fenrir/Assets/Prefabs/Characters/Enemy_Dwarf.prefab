@@ -1271,7 +1271,7 @@ MonoBehaviour:
   player: {fileID: 0}
   anim: {fileID: 7182099399157089196}
   crystalPB: {fileID: 4438069576761163849, guid: 88fb5506270375e44a743dabfc83587e, type: 3}
-  lifePoints: 3
+  lifePoints: 5
   lifeBarContainer: {fileID: 2285196908499351365}
   lifeBar: {fileID: 6813174048521076450}
   range: 10
@@ -1289,7 +1289,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 5
+  m_Speed: 10
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1310,7 +1310,7 @@ AudioSource:
   m_GameObject: {fileID: 5722015828919104498}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7588522490533215558, guid: b85b7035b4ff48d478bb0630cca00dc9, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

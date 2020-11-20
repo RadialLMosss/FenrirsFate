@@ -8,12 +8,13 @@ public class ShopManager : MonoBehaviour
     public GameObject shopPanel;
     public Text productNameUI;
     public Text productPriceUI;
+    public GameObject errorMessage;
 
     public GameObject shopPanelLootBox;
     public Text productNameUILootBox;
     public Text productPriceUILootBox;
+    public GameObject errorMessageLootBox;
 
-    public GameObject errorMessage;
     public Player player;
     CollectablePrize currentProduct;
 
@@ -24,11 +25,11 @@ public class ShopManager : MonoBehaviour
         productNameUI.text = product.type.ToString() + " - " + product.size.ToString();
         if(Player.hasSkill[15]) //has discount
         {
-            productPriceUI.text = (product.price / 2).ToString() + " Crystals";
+            productPriceUI.text = (product.price / 2).ToString() + " Minérios";
         }
         else
         {
-            productPriceUI.text = product.price.ToString() + " Crystals";
+            productPriceUI.text = product.price.ToString() + " Minérios";
         }
     }
 
@@ -37,7 +38,7 @@ public class ShopManager : MonoBehaviour
         shopPanelLootBox.SetActive(true);
         currentProduct = product;
         productNameUILootBox.text = product.type.ToString() + " - " + product.size.ToString();
-        productPriceUILootBox.text = product.price.ToString() + " $$$$$";
+        productPriceUILootBox.text = product.price.ToString() + " Fúria";
     }
 
     public void CloseShopWindow()
@@ -47,6 +48,12 @@ public class ShopManager : MonoBehaviour
     }
 
     Vector3 playerBuyingPosition;
+
+    public void CloseShopLootBoxWindow()
+    {
+        shopPanelLootBox.SetActive(false);
+        playerBuyingPosition = Vector3.zero;
+    }
 
     private void Update()
     {
@@ -66,18 +73,16 @@ public class ShopManager : MonoBehaviour
 
     public void BuyProductLootBox()
     {
-        /*
-        if (Player.crystals >= currentProduct.price)
+        if (Player.fury >= currentProduct.price * 30)
         {
             shopPanel.SetActive(false);
-            player.UpdateCrystalCurrency(-currentProduct.price);
+            player.UpdateFuryCurrency(-currentProduct.price * 30);
             player.GetCollectablePrizeEffect(currentProduct);
         }
         else
         {
-            StartCoroutine(ShowError());
+            StartCoroutine(ShowErrorLootBox());
         }
-        */
     }
 
     public void BuyProduct()
@@ -109,6 +114,13 @@ public class ShopManager : MonoBehaviour
             }
         }
 
+    }
+
+    IEnumerator ShowErrorLootBox()
+    {
+        errorMessageLootBox.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        errorMessageLootBox.SetActive(false);
     }
 
     IEnumerator ShowError()

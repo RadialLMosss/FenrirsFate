@@ -245,7 +245,7 @@ public class LevelGenerator : MonoBehaviour
         }
         ResetPlayerPosition();
     }
-
+    public Player player;
     private void ResetPlayerPosition()
     {
         playerTransform.position = new Vector3(levelSections[0].transform.position.x, 1.5f, levelSections[0].transform.position.z);
@@ -254,6 +254,10 @@ public class LevelGenerator : MonoBehaviour
         water.SetActive(true);
         Player.enemiesToDefeat = enemiesSpawned.Count;
         NextLevelPortal.canUpdate = true;
+        if(LevelGenerator.levelType == LevelType.start)
+        {
+            StartCoroutine(player.PlayChainsAnim());
+        }
     }
 
     public GameObject puzzleTotemPB;

@@ -41,11 +41,12 @@ public class CollectablePrize : MonoBehaviour
         }
     }
 
+    public Animator anim;
     public void OpenChest()
     {
-        if(version == Version.Chest)
+        if(version == Version.Chest && !isChestOpened)
         {
-            //play animation
+            anim.Play("OpenChest");
             InitChestVersion();
             isChestOpened = true;
         }

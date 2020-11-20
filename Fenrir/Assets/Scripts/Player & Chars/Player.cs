@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     //To Reset
     public static float baseLife = 10;
     public static float baseNormalDamage = 1;
-    public static float baseStrongDamage = 2;
+    public static float baseStrongDamage = 1.5f;
     public static float baseDefense = 0;
 
 
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
     public static float totalLifePoints = 10;
     public static float defenseValue = 0;
     public static float normalDamageValue = 1;
-    public static float strongDamageValue = 2;
+    public static float strongDamageValue = 1.5f;
     //public static int damageValue = 1;
 
     public GameObject attackVol;
@@ -64,7 +64,6 @@ public class Player : MonoBehaviour
     static int crystalsMultipl = 1;
     static Player playerInst;
 
-    public bool playing = false;
     public Animator anim;
     public AudioSource audioSource;
     public AudioSource audioSourceFootsteps;
@@ -167,6 +166,7 @@ public class Player : MonoBehaviour
     {
         baseLife += 4;
         totalLifePoints = baseLife;
+        lifeBar.color = new Color(lifeBar.color.r, lifeBar.color.g, 0, lifeBar.color.a);
     }
 
     private void Awake()
@@ -189,17 +189,17 @@ public class Player : MonoBehaviour
 
 
     // =====================================================================================
-
+    bool cantMove;
     private void Update()
     {
         if (runningAttackTimer <= 0)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !cantMove)
             {
                 Attack();
                 runningAttackTimer = totalAttackTimer;
             }
-            else if(Input.GetButtonDown("Fire2"))
+            else if(Input.GetButtonDown("Fire2") && !cantMove)
             {
                 Attack2();
                 runningAttackTimer = totalAttackTimer*2;
@@ -219,23 +219,29 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
+        if((Input.GetButton("Horizontal") || Input.GetButton("Vertical")) && !cantMove)
         {
             Move();
         }
         if(!Input.GetButton("Horizontal") && !Input.GetButton("Vertical") && (rb.velocity != Vector3.zero || rbSpeed != originalRbSpeed))
         {
-            audioSourceFootsteps.mute = true;
-            rb.velocity = Vector3.zero;
-            rbSpeed = originalRbSpeed;
-            anim.SetBool("isWalking", false);
+            if(!cantMove)
+            {
+                audioSourceFootsteps.mute = true;
+                rb.velocity = Vector3.zero;
+                rbSpeed = originalRbSpeed;
+                anim.SetBool("isWalking", false);
+            }
         }
 
         if (runningDashTimer <= 0 && !isInvicible)
         {
             if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown("Jump")) && rbSpeed == originalRbSpeed)
             {
-                StartCoroutine(Dash());
+                if(!cantMove)
+                {
+                    StartCoroutine(Dash());
+                }
             }
         }
         else
@@ -276,18 +282,21 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        Vector3 rightMovement = right * speed * Time.deltaTime * Input.GetAxis("Horizontal");
-        Vector3 upMovement = forward * speed * Time.deltaTime * Input.GetAxis("Vertical");
+        if(!cantMove)
+        {
+            Vector3 rightMovement = right * speed * Time.deltaTime * Input.GetAxis("Horizontal");
+            Vector3 upMovement = forward * speed * Time.deltaTime * Input.GetAxis("Vertical");
 
-        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
+            Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 
-        if (heading == Vector3.zero)
-            return;
+            if (heading == Vector3.zero)
+                return;
 
-        transform.forward = heading;
-        anim.SetBool("isWalking", true);
-        audioSourceFootsteps.mute = false;
-        rb.velocity = heading * rbSpeed;
+            transform.forward = heading;
+            anim.SetBool("isWalking", true);
+            audioSourceFootsteps.mute = false;
+            rb.velocity = heading * rbSpeed;
+        }
     }
 
     public void Attack()
@@ -301,13 +310,13 @@ public class Player : MonoBehaviour
             anim.SetTrigger("Claw2");
         }
         audioSource.PlayOneShot(clips[1]);
-        AttackEffect(2.5f, attackVol.transform, normalDamageValue);
+        AttackEffect(3f, attackVol.transform, normalDamageValue);
     }
     public void Attack2()
     {
         anim.SetTrigger("Bite");
         audioSource.PlayOneShot(clips[0]);
-        AttackEffect(2.5f, attackVol.transform, strongDamageValue);
+        AttackEffect(3f, attackVol.transform, strongDamageValue);
     }
     void AttackEffect(float range, Transform damagePoint, float damage)
     {
@@ -355,12 +364,28 @@ public class Player : MonoBehaviour
         lifeBar.fillAmount = lifePoints / totalLifePoints;
         if(lifePoints <= 0)
         {
-            playing = false;
             audioSource.PlayOneShot(clips[3]);
             anim.SetTrigger("Death");
             StartCoroutine(DieDelay());
         }
     }
+    public GameObject cineCamera;
+    public GameObject mainCamera;
+
+    public IEnumerator PlayChainsAnim()
+    {
+        cantMove = true;
+        cineCamera.SetActive(true);
+        mainCamera.gameObject.SetActive(false);
+        rbSpeed = 0;
+        anim.Play("Unchain");
+        yield return new WaitForSeconds(8.5f);
+        rbSpeed = originalRbSpeed;
+        mainCamera.gameObject.SetActive(true);
+        cineCamera.SetActive(false);
+        cantMove = false;
+    }
+
 
     IEnumerator DieDelay()
     {
@@ -498,6 +523,7 @@ public class Player : MonoBehaviour
 
             case CollectablePrize.Type.LifeRune:
                 totalLifePoints += 6;
+                lifeBar.color = new Color(0, lifeBar.color.g, lifeBar.color.b, lifeBar.color.a);
                 UpdateLifePoints(0);
                 lifeRune.SetActive(true);
                 break;
@@ -553,6 +579,7 @@ public class Player : MonoBehaviour
         defenseValue = baseDefense;
         normalDamageValue = baseNormalDamage;
         strongDamageValue = baseStrongDamage;
+        lifeBar.color = new Color(255, lifeBar.color.g, lifeBar.color.b, lifeBar.color.a);
         totalLifePoints = baseLife;
         lifePoints = totalLifePoints;
         UpdateLifePoints(0);
