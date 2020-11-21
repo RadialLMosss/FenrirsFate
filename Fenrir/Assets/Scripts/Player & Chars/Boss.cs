@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class Boss : MonoBehaviour
 {
     public NavMeshAgent NavMeshAgent;
@@ -37,9 +37,9 @@ public class Boss : MonoBehaviour
         }
         for (int i = 0; i < swordsAttack1.Length; i++)
         {
-            swordsAttack1[i].Play("SwordUP");
+            swordsAttack1[i].SetTrigger("Attack");
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.75f);
         swordAttack1.transform.position = new Vector3(swordAttack1.transform.position.x, swordAttack1.transform.position.y, swordAttack1.transform.position.z - 3.30f);
         swordAttack1MoveCount++;
         if(swordAttack1MoveCount < 2)
@@ -48,9 +48,9 @@ public class Boss : MonoBehaviour
         }
         else
         {
+            isAttacking = false;
             swordAttack1.transform.position = new Vector3(swordAttack1.transform.position.x, swordAttack1.transform.position.y, 13.30f);
             swordAttack1MoveCount = 0;
-            isAttacking = false;
         }
     }
 
@@ -65,9 +65,9 @@ public class Boss : MonoBehaviour
         }
         for (int i = 0; i < swordsAttack2.Length; i++)
         {
-            swordsAttack2[i].Play("SwordUP");
+            swordsAttack2[i].SetTrigger("Attack");
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.75f);
         swordAttack2.transform.position = new Vector3(swordAttack2.transform.position.x, swordAttack2.transform.position.y, swordAttack2.transform.position.z - 3.30f);
         swordAttack2MoveCount++;
         if (swordAttack2MoveCount < 5)
@@ -76,9 +76,9 @@ public class Boss : MonoBehaviour
         }
         else
         {
+            isAttacking = false;
             swordAttack2.transform.position = new Vector3(swordAttack2.transform.position.x, swordAttack2.transform.position.y, 13.30f);
             swordAttack2MoveCount = 0;
-            isAttacking = false;
         }
     }
 
@@ -88,7 +88,7 @@ public class Boss : MonoBehaviour
         isAttacking = true;
         anim.SetTrigger("Attack");
         audioSource.PlayOneShot(clips[0]);
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(2f);
         isAttacking = false;
     }
 
@@ -134,7 +134,7 @@ public class Boss : MonoBehaviour
                     if (!shouldAvoidPlayer)
                     {
                         NavMeshAgent.SetDestination(player.transform.position);
-                        if(Vector3.Distance(player.transform.position, transform.position) > 3 && !isAttacking)
+                        if(Vector3.Distance(player.transform.position, transform.position) > 7.5 && !isAttacking)
                         {
                             if(Random.Range(0, 2) == 0)
                             {
@@ -145,7 +145,7 @@ public class Boss : MonoBehaviour
                                 StartCoroutine(SwordAttack2());
                             }
                         }
-                        if (Vector3.Distance(player.transform.position, transform.position) <= 3 && !isAttacking)
+                        else if (Vector3.Distance(player.transform.position, transform.position) <= 7.5f && !isAttacking)
                         {
                             StartCoroutine(Attack());
                         }
@@ -198,6 +198,7 @@ public class Boss : MonoBehaviour
 
     public void TakeDamage(float damage, bool shouldBleed)
     {
+        lifePoints -= damage;
         if (lifePoints < 0)
         {
             lifePoints = 0;
@@ -220,14 +221,20 @@ public class Boss : MonoBehaviour
 
     void BossDeath()
     {
-        anim.Play("Death_Tyr");
-        Destroy(gameObject, 1f);
+        anim.SetTrigger("Death_Tyr");
+        isAttacking = true;
+        NavMeshAgent = null;
         //Cutscene Final
-        //Tela de créditos
-        //menu inicial
+        //ligar painel com "fim de jogo"
+        StartCoroutine(EndGame());
     }
     //==================================================
-
+   
+    IEnumerator EndGame()
+    {
+        yield return new WaitForSeconds(5);
+        player.UpdateLifePoints(-100);
+    }
 
     bool shouldAvoidPlayer;
     bool cantAvoidPlayer;

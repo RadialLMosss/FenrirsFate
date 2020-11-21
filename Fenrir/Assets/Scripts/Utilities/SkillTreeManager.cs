@@ -63,6 +63,11 @@ public class SkillTreeManager : MonoBehaviour
         }
     }
 
+    public void Open()
+    {
+        skillTreePanel.SetActive(!skillTreePanel.activeSelf);
+    }
+
     public void Close()
     {
         skillTreePanel.SetActive(false);

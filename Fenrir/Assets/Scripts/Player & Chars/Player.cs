@@ -100,16 +100,16 @@ public class Player : MonoBehaviour
                 totalDashTimer /= 2;
                 break;
 
-            case 5: 
-                // Dash percorre maior distância
-                dashDuration *= 2;
-                break;
-
-            case 6: 
+            case 5:
                 // Maior Velocidade de Movimento
                 speed *= 1.25f;
                 originalRbSpeed *= 1.25f;
                 rbSpeed *= 1.25f;
+                break;
+
+            case 6:
+                // Dash percorre maior distância
+                dashDuration *= 2;
                 break;
 
             case 7: 
@@ -124,12 +124,12 @@ public class Player : MonoBehaviour
                 baseNormalDamage += 1;
                 break;
 
-            case 9: // Garra pode refletir ataques à distância (exceto boss)
+            case 9:
+                // Garra faz inimigos sangrarem por um tempo
+                //hasSkill[9] set to true is enough
                 break;
 
-            case 10:
-                // Garra faz inimigos sangrarem por um tempo
-                //hasSkill[10] set to true is enough
+            case 10:// Garra pode refletir ataques à distância (exceto boss)
                 break;
 
             case 11:
@@ -228,8 +228,9 @@ public class Player : MonoBehaviour
                 Time.timeScale = 1;
             }
         }
-
     }
+
+
 
     void FixedUpdate()
     {
@@ -341,11 +342,25 @@ public class Player : MonoBehaviour
             {
                 if(damage == normalDamageValue)
                 {
-                    hitCollider.GetComponent<Enemy>().TakeDamage(damage, hasSkill[10]);
+                    if(hitCollider.GetComponent<Enemy>())
+                    {
+                        hitCollider.GetComponent<Enemy>().TakeDamage(damage, hasSkill[9]);
+                    }
+                    else if(hitCollider.GetComponent<Boss>())
+                    {
+                        hitCollider.GetComponent<Boss>().TakeDamage(damage, hasSkill[9]);
+                    }
                 }
                 else
                 {
-                    hitCollider.GetComponent<Enemy>().TakeDamage(damage, false);
+                    if(hitCollider.GetComponent<Enemy>())
+                    {
+                        hitCollider.GetComponent<Enemy>().TakeDamage(damage, false);
+                    }
+                    else if (hitCollider.GetComponent<Boss>())
+                    {
+                        hitCollider.GetComponent<Boss>().TakeDamage(damage, false);
+                    }
                 }
             }
             else if(hitCollider.gameObject.layer == 9)
@@ -413,11 +428,18 @@ public class Player : MonoBehaviour
 
     IEnumerator DieDelay()
     {
-        rbSpeed = 0;
-        yield return new WaitForSeconds(1);
-        PlayerDeath();
-        rbSpeed = originalRbSpeed;
+        if(!isDying)
+        {
+            isDying = true;
+            cantMove = true;
+            rbSpeed = 0;
+            yield return new WaitForSeconds(0.5f);
+            PlayerDeath();
+            rbSpeed = originalRbSpeed;
+        }
+
     }
+
 
     bool isGoingToOtherLevel;
     IEnumerator NextLevelDelay(Collider coll, int levelIndex)
@@ -484,6 +506,10 @@ public class Player : MonoBehaviour
                 StartCoroutine(spikeTrap.DelayedSpikes());
             }
         }
+        else if (collision.gameObject.CompareTag("Damage"))
+        {
+            UpdateLifePoints(-2);
+        }
     }
 
     // ==================================================================================================
@@ -494,71 +520,71 @@ public class Player : MonoBehaviour
         audioSource.PlayOneShot(clips[7]);
         switch (prize.type)
         {
-            case CollectablePrize.Type.LifeOrbs:
+            case CollectablePrize.Type.Vida:
                 switch (prize.size)
                 {
-                    case CollectablePrize.Size.Small:
+                    case CollectablePrize.Size.P:
                         UpdateLifePoints(2);
                         break;
 
-                    case CollectablePrize.Size.Medium:
+                    case CollectablePrize.Size.M:
                         UpdateLifePoints(4);
                         break;
 
-                    case CollectablePrize.Size.Big:
+                    case CollectablePrize.Size.G:
                         UpdateLifePoints(6);
                         break;
                 }
                 break;
 
-            case CollectablePrize.Type.FuryOrbs:
+            case CollectablePrize.Type.Fúria:
                 switch (prize.size)
                 {
-                    case CollectablePrize.Size.Small:
+                    case CollectablePrize.Size.P:
                         UpdateFuryCurrency(10);
                         break;
 
-                    case CollectablePrize.Size.Medium:
+                    case CollectablePrize.Size.M:
                         UpdateFuryCurrency(15);
                         break;
 
-                    case CollectablePrize.Size.Big:
+                    case CollectablePrize.Size.G:
                         UpdateFuryCurrency(20);
                         break;
                 }
                 break;
 
-            case CollectablePrize.Type.CrystalBag:
+            case CollectablePrize.Type.Minério:
                 switch (prize.size)
                 {
-                    case CollectablePrize.Size.Small:
+                    case CollectablePrize.Size.P:
                         UpdateCrystalCurrency(5);
                         break;
 
-                    case CollectablePrize.Size.Medium:
+                    case CollectablePrize.Size.M:
                         UpdateCrystalCurrency(10);
                         break;
 
-                    case CollectablePrize.Size.Big:
+                    case CollectablePrize.Size.G:
                         UpdateCrystalCurrency(15);
                         break;
                 }
                 break;
 
-            case CollectablePrize.Type.LifeRune:
+            case CollectablePrize.Type._Vida:
                 totalLifePoints += 6;
                 lifeBar.color = new Color(0, lifeBar.color.g, lifeBar.color.b, lifeBar.color.a);
                 UpdateLifePoints(0);
                 lifeRune.SetActive(true);
                 break;
 
-            case CollectablePrize.Type.FuryRune: //damage
+            case CollectablePrize.Type.Runa_Fúria: //damage
                 normalDamageValue += 2;
                 strongDamageValue += 3;
                 furyRune.SetActive(true);
                 break;
 
-            case CollectablePrize.Type.CourageRune: //defense
+            case CollectablePrize.Type.Runa_Coragem: //defense
                 defenseValue = 2.5f;
                 courageRune.SetActive(true);
                 break;
@@ -592,6 +618,8 @@ public class Player : MonoBehaviour
         furyText.text = fury.ToString() + "x";
     }
 
+    public static bool isDying;
+
     void PlayerDeath()
     {
         GameManager.levelCount = -1;
@@ -607,5 +635,6 @@ public class Player : MonoBehaviour
         totalLifePoints = baseLife;
         lifePoints = totalLifePoints;
         UpdateLifePoints(0);
+        cantMove = false;
     }
 }

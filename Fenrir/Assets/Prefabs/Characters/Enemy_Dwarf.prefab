@@ -1271,7 +1271,7 @@ MonoBehaviour:
   player: {fileID: 0}
   anim: {fileID: 7182099399157089196}
   crystalPB: {fileID: 4438069576761163849, guid: 88fb5506270375e44a743dabfc83587e, type: 3}
-  lifePoints: 1
+  lifePoints: 3
   lifeBarContainer: {fileID: 2285196908499351365}
   lifeBar: {fileID: 6813174048521076450}
   range: 10

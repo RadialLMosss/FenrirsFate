@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class StoryIntroManager : MonoBehaviour
 {
     int textCount = -1;
-    public Text storyText;
-    [TextArea(2, 3)]public string[] storyStrings;
+    public Image storyTextPanel;
+    public Sprite[] storyPanels;
     string nextSceneName;
-
+    public GameObject storyPanel;
     public void StartStoryIntro(string nextScene)
     {
+        storyPanel.SetActive(true);
         nextSceneName = nextScene;
         StartCoroutine(ShowStory());
     }
@@ -19,10 +20,10 @@ public class StoryIntroManager : MonoBehaviour
     IEnumerator ShowStory()
     {
         textCount++;
-        if(textCount < storyStrings.Length)
+        if(textCount < storyPanels.Length)
         {
-            storyText.text = storyStrings[textCount];
-            yield return new WaitForSeconds(3);
+            storyTextPanel.sprite = storyPanels[textCount];
+            yield return new WaitForSeconds(7);
             StartCoroutine(ShowStory());
         }
         else

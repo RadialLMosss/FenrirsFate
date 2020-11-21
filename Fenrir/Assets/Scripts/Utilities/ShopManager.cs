@@ -20,6 +20,7 @@ public class ShopManager : MonoBehaviour
 
     public void ShowShopWindow(CollectablePrize product)
     {
+        CloseShopLootBoxWindow();
         shopPanel.SetActive(true);
         currentProduct = product;
         productNameUI.text = product.type.ToString() + " - " + product.size.ToString();
@@ -35,6 +36,7 @@ public class ShopManager : MonoBehaviour
 
     public void ShowLootBoxShopWindow(CollectablePrize product)
     {
+        CloseShopWindow();
         shopPanelLootBox.SetActive(true);
         currentProduct = product;
         productNameUILootBox.text = product.type.ToString() + " - " + product.size.ToString();
@@ -66,6 +68,17 @@ public class ShopManager : MonoBehaviour
             if(Vector3.Distance(playerBuyingPosition, player.transform.position) > 3f)
             {
                 CloseShopWindow();
+            }
+        }
+        if(shopPanelLootBox.activeSelf)
+        {
+            if (playerBuyingPosition == Vector3.zero)
+            {
+                playerBuyingPosition = player.transform.position;
+            }
+            if (Vector3.Distance(playerBuyingPosition, player.transform.position) > 3f)
+            {
+                CloseShopLootBoxWindow();
             }
         }
     }

@@ -8,10 +8,10 @@ public class CollectablePrize : MonoBehaviour
     public enum Version { Shop, Chest, LootBox}
     public Version version;
 
-    public enum Type { LifeOrbs, FuryOrbs, CrystalBag, LifeRune, FuryRune, CourageRune}
+    public enum Type { Vida, Fúria, Minério, _Vida, Runa_Fúria, Runa_Coragem}
     [HideInInspector] public Type type;
 
-    public enum Size { Small, Medium, Big, Max}
+    public enum Size { P, M, G, x}
     [HideInInspector] public Size size;
 
     public GameObject[] possibleVisuals;
@@ -25,6 +25,7 @@ public class CollectablePrize : MonoBehaviour
         if(LevelGenerator.levelType == LevelGenerator.LevelType.puzzle && version == Version.Chest)
         {
             chestModel.SetActive(true);
+            
         }
         else if(LevelGenerator.levelType == LevelGenerator.LevelType.shop && version == Version.Shop)
         {
@@ -48,7 +49,7 @@ public class CollectablePrize : MonoBehaviour
         {
             anim.Play("OpenChest");
             InitChestVersion();
-            isChestOpened = true;
+            StartCoroutine(SetVisualChestItem());
         }
     }
 
@@ -60,20 +61,20 @@ public class CollectablePrize : MonoBehaviour
             case 0:
                 if (Player.lifePoints == Player.totalLifePoints)
                 {
-                    type = Type.FuryOrbs;
+                    type = Type.Fúria;
                     possibleVisuals[1].SetActive(true);
                     price = prices[1];
                 }
                 else
                 {
-                    type = Type.LifeOrbs;
+                    type = Type.Vida;
                     possibleVisuals[0].SetActive(true);
                     price = prices[0];
                 }
                 break;
 
             case 1:
-                type = Type.FuryOrbs;
+                type = Type.Fúria;
                 possibleVisuals[1].SetActive(true);
                 price = prices[1];
                 break;
@@ -81,7 +82,7 @@ public class CollectablePrize : MonoBehaviour
             case 2:
                 if(Player.totalLifePoints <= Player.baseLife)
                 {
-                    type = Type.LifeRune;
+                    type = Type._Vida;
                     possibleVisuals[3].SetActive(true);
                     price = prices[3];
                 }
@@ -89,13 +90,13 @@ public class CollectablePrize : MonoBehaviour
                 {
                     if (Player.lifePoints == Player.totalLifePoints)
                     {
-                        type = Type.FuryOrbs;
+                        type = Type.Fúria;
                         possibleVisuals[1].SetActive(true);
                         price = prices[1];
                     }
                     else
                     {
-                        type = Type.LifeOrbs;
+                        type = Type.Vida;
                         possibleVisuals[0].SetActive(true);
                         price = prices[0];
                     }
@@ -105,13 +106,13 @@ public class CollectablePrize : MonoBehaviour
             case 3:
                 if(Player.normalDamageValue <= Player.baseNormalDamage)
                 {
-                    type = Type.FuryRune;
+                    type = Type.Runa_Fúria;
                     possibleVisuals[4].SetActive(true);
                     price = prices[4];
                 }
                 else
                 {
-                    type = Type.FuryOrbs;
+                    type = Type.Fúria;
                     possibleVisuals[1].SetActive(true);
                     price = prices[1];
                 }
@@ -120,7 +121,7 @@ public class CollectablePrize : MonoBehaviour
             case 4:
                 if(Player.defenseValue <= Player.baseDefense)
                 {
-                    type = Type.CourageRune;
+                    type = Type.Runa_Coragem;
                     possibleVisuals[5].SetActive(true);
                     price = prices[5];
                 }
@@ -128,13 +129,13 @@ public class CollectablePrize : MonoBehaviour
                 {
                     if(Random.Range(0, 2) == 0)
                     {
-                        type = Type.LifeOrbs;
+                        type = Type.Vida;
                         possibleVisuals[0].SetActive(true);
                         price = prices[0];
                     }
                     else
                     {
-                        type = Type.FuryOrbs;
+                        type = Type.Fúria;
                         possibleVisuals[1].SetActive(true);
                         price = prices[1];
                     }
@@ -144,9 +145,11 @@ public class CollectablePrize : MonoBehaviour
         RandomSize();
     }
 
+    int chestItemIndex;
     void InitChestVersion()
     {
         int r = Random.Range(0, 3);
+        chestItemIndex = r;
         switch (r)
         {
             case 0:
@@ -156,70 +159,71 @@ public class CollectablePrize : MonoBehaviour
                     switch (r2)
                     {
                         case 0:
-                            type = Type.CrystalBag;
-                            possibleVisuals[2].SetActive(true);
+                            type = Type.Minério;
                             price = prices[2];
                             break;
 
                         case 1:
-                            type = Type.FuryOrbs;
-                            possibleVisuals[1].SetActive(true);
+                            type = Type.Fúria;
                             price = prices[1];
                             break;
                     }
                 }
                 else
                 {
-                    type = Type.LifeOrbs;
-                    possibleVisuals[0].SetActive(true);
+                    type = Type.Vida;
                     price = prices[0];
                 }
                 break;
 
             case 1:
-                type = Type.FuryOrbs;
-                possibleVisuals[1].SetActive(true);
+                type = Type.Fúria;
                 price = prices[1];
                 break;
 
             case 2:
-                type = Type.CrystalBag;
-                possibleVisuals[2].SetActive(true);
+                type = Type.Minério;
                 price = prices[2];
                 break;
         }
         if(r != 0 && Player.lifePoints <= Player.totalLifePoints/3)
         {
-            type = Type.LifeOrbs;
-            possibleVisuals[0].SetActive(true);
+            type = Type.Vida;
             price = prices[0];
         }
         RandomSize();
     }
 
+    IEnumerator SetVisualChestItem()
+    {
+        yield return new WaitForSeconds(2f);
+        possibleVisuals[chestItemIndex].SetActive(true);
+        isChestOpened = true;
+    }
+
     void RandomSize()
     {
-        if(type != Type.CourageRune && type != Type.FuryRune && type != Type.LifeRune)
+        if(type != Type.Runa_Coragem && type != Type.Runa_Fúria && type != Type._Vida)
         {
             int r = Random.Range(0, 3);
             if (r == 0)
             {
-                size = Size.Small;
+                size = Size.P;
             }
             else if (r == 1)
             {
-                size = Size.Medium;
+                size = Size.M;
                 price *= 2;
             }
             else if (r == 2)
             {
-                size = Size.Big;
+                size = Size.G;
                 price *= 3;
             }
         }
         else
         {
-            size = Size.Max;
+            size = Size.x;
         }
     }
 

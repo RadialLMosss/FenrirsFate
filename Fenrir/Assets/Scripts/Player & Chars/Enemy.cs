@@ -166,12 +166,12 @@ public class Enemy : MonoBehaviour
         {
             GameObject furyOrb = Instantiate(furyOrbPB, transform.position, Quaternion.identity);
             furyOrb.GetComponent<FuryOrb>().StartFollowingPlayer(player);
+            Player.enemiesToDefeat -= 1;
             if (Random.Range(0, 3) == 0)
             {
                 GameObject crystal = Instantiate(crystalPB, transform.position, Quaternion.identity);
                 Destroy(crystal, 5);
             }
-            Player.enemiesToDefeat -= 1;
             if(NavMeshAgent != null)
             {
                 anim.SetTrigger("Death");

@@ -258,6 +258,7 @@ public class LevelGenerator : MonoBehaviour
         {
             StartCoroutine(player.PlayChainsAnim());
         }
+        Player.isDying = false;
     }
 
     public GameObject puzzleTotemPB;

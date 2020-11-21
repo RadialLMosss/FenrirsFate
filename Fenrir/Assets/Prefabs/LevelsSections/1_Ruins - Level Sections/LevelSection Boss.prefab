@@ -106,9 +106,10 @@ GameObject:
   - component: {fileID: 4523921615306488152}
   - component: {fileID: 1814042403332230546}
   - component: {fileID: 1075604214979203349}
+  - component: {fileID: 1780862373388745564}
   m_Layer: 0
   m_Name: Espada_Animada (4)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,6 +198,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &1780862373388745564
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156563327570586695}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 1, z: 0.035}
+  m_Center: {x: 0.0000000074505815, y: 0.5625301, z: 0}
 --- !u!1 &173870721094346938
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,9 +542,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8723723407928505995}
+  - component: {fileID: 4650004012090318499}
   m_Layer: 0
   m_Name: GameObject (6)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -544,12 +559,25 @@ Transform:
   m_GameObject: {fileID: 267592480454723032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.000001, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.75}
   m_Children:
   - {fileID: 1262191502230295363}
   m_Father: {fileID: 8176336788787237047}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4650004012090318499
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267592480454723032}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48, y: 2.8, z: 0.42}
+  m_Center: {x: 0, y: -1.43, z: 0}
 --- !u!1 &269779810235417212
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,6 +1101,50 @@ Transform:
   m_Father: {fileID: 923907229465126506}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &554611306136510160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2012584697708713057}
+  - component: {fileID: 312036524930665220}
+  m_Layer: 0
+  m_Name: DamageVol
+  m_TagString: Damage
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2012584697708713057
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 554611306136510160}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.139, y: 0.704, z: 0.693}
+  m_LocalScale: {x: 0.54869485, y: 0.44721994, z: 0.73172}
+  m_Children: []
+  m_Father: {fileID: 1205364752697691712}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &312036524930665220
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 554611306136510160}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &585133339322422395
 GameObject:
   m_ObjectHideFlags: 0
@@ -1243,7 +1315,7 @@ Transform:
   m_GameObject: {fileID: 754270594725343320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 15.06}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1.6}
   m_Children:
   - {fileID: 1205364752697691712}
   m_Father: {fileID: 7819270341306572253}
@@ -1270,7 +1342,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 754270594725343320}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 50
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -1288,7 +1360,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 7.5
+  m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -2065,9 +2137,10 @@ GameObject:
   - component: {fileID: 3718585324152643163}
   - component: {fileID: 1477153118768179857}
   - component: {fileID: 269779809648457238}
+  - component: {fileID: 1285111093914119385}
   m_Layer: 0
   m_Name: Espada_Animada (1)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2156,6 +2229,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &1285111093914119385
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116640504384457540}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 1, z: 0.035}
+  m_Center: {x: 0.0000000074505815, y: 0.5625301, z: 0}
 --- !u!1 &1141697616511704661
 GameObject:
   m_ObjectHideFlags: 0
@@ -2215,9 +2301,10 @@ GameObject:
   - component: {fileID: 3675560682889829579}
   - component: {fileID: 1506104149272078337}
   - component: {fileID: 227242801257526406}
+  - component: {fileID: 7789977440460313863}
   m_Layer: 0
   m_Name: Espada_Animada (8)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2306,6 +2393,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &7789977440460313863
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145671111438305748}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 1, z: 0.035}
+  m_Center: {x: 0.0000000074505815, y: 0.5625301, z: 0}
 --- !u!1 &1155959203179511281
 GameObject:
   m_ObjectHideFlags: 0
@@ -2318,9 +2418,10 @@ GameObject:
   - component: {fileID: 3237738472565696750}
   - component: {fileID: 795508436928568356}
   - component: {fileID: 2074931362654486691}
+  - component: {fileID: 1687785546554914115}
   m_Layer: 0
   m_Name: Espada_Animada (7)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2409,6 +2510,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &1687785546554914115
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155959203179511281}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 1, z: 0.035}
+  m_Center: {x: 0.00000024586916, y: 0.5625301, z: 0}
 --- !u!1 &1180857951322745342
 GameObject:
   m_ObjectHideFlags: 0
@@ -2542,9 +2656,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5274965962027545838}
+  - component: {fileID: 4133590001813534929}
   m_Layer: 0
   m_Name: GameObject (8)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2558,12 +2673,25 @@ Transform:
   m_GameObject: {fileID: 1226409492782761706}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.666667, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.75}
   m_Children:
   - {fileID: 337186555775243118}
   m_Father: {fileID: 1984238082698266378}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4133590001813534929
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226409492782761706}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48, y: 2.8, z: 0.42}
+  m_Center: {x: 0, y: -1.43, z: 0}
 --- !u!1 &1256343356534075350
 GameObject:
   m_ObjectHideFlags: 0
@@ -2791,9 +2919,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2381840715232621897}
+  - component: {fileID: 8463876760703288380}
   m_Layer: 0
   m_Name: GameObject (4)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2807,12 +2936,25 @@ Transform:
   m_GameObject: {fileID: 1405654041620586846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.6666672, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.75}
   m_Children:
   - {fileID: 7650299999479477906}
   m_Father: {fileID: 1984238082698266378}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8463876760703288380
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405654041620586846}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48, y: 2.8, z: 0.42}
+  m_Center: {x: 0, y: -1.43, z: 0}
 --- !u!1 &1444193756475653304
 GameObject:
   m_ObjectHideFlags: 0
@@ -2852,9 +2994,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3998433478834001164}
+  - component: {fileID: 6724037145895800844}
   m_Layer: 0
   m_Name: GameObject (5)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2868,12 +3011,25 @@ Transform:
   m_GameObject: {fileID: 1470386265360059818}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.750001, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.75}
   m_Children:
   - {fileID: 6496667019425660924}
   m_Father: {fileID: 8176336788787237047}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6724037145895800844
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470386265360059818}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48, y: 2.8, z: 0.42}
+  m_Center: {x: 0, y: -1.43, z: 0}
 --- !u!1 &1585345333600788648
 GameObject:
   m_ObjectHideFlags: 0
@@ -3613,9 +3769,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7810243588831310138}
+  - component: {fileID: 5622173842568117349}
   m_Layer: 0
   m_Name: GameObject (4)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3629,12 +3786,25 @@ Transform:
   m_GameObject: {fileID: 1839657984485901566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.333334, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.75}
   m_Children:
   - {fileID: 677766630406813437}
   m_Father: {fileID: 8176336788787237047}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5622173842568117349
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839657984485901566}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48, y: 2.8, z: 0.42}
+  m_Center: {x: 0, y: -1.43, z: 0}
 --- !u!1 &1852932542258381603
 GameObject:
   m_ObjectHideFlags: 0
@@ -3772,9 +3942,10 @@ GameObject:
   - component: {fileID: 2750555805722549478}
   - component: {fileID: 130350021046167596}
   - component: {fileID: 1589362778073298091}
+  - component: {fileID: 5856808584440244751}
   m_Layer: 0
   m_Name: Espada_Animada (6)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3863,6 +4034,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &5856808584440244751
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932014379285629433}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 1, z: 0.035}
+  m_Center: {x: 0.00000024586916, y: 0.5625301, z: 0}
 --- !u!1 &1997137473366468544
 GameObject:
   m_ObjectHideFlags: 0
@@ -3974,6 +4158,7 @@ Transform:
   - {fileID: 3724324615767194905}
   - {fileID: 1029385492055233319}
   - {fileID: 6344020760062915360}
+  - {fileID: 2012584697708713057}
   m_Father: {fileID: 754270594725343327}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4007,9 +4192,11 @@ GameObject:
   - component: {fileID: 1205364752537407160}
   - component: {fileID: 2816310310955893021}
   - component: {fileID: 67971841173173719}
+  - component: {fileID: 4289485974049499228}
+  - component: {fileID: 7337860182284872264}
   m_Layer: 0
   m_Name: ESPADA (2)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4077,6 +4264,35 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4289485974049499228
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013531759977993218}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.31401342, y: 1.1234345, z: 0.04983156}
+  m_Center: {x: -0.00000018067388, y: 0.56253016, z: -0.00000004283994}
+--- !u!54 &7337860182284872264
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013531759977993218}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 46
+  m_CollisionDetection: 0
 --- !u!1 &2033520848397212854
 GameObject:
   m_ObjectHideFlags: 0
@@ -6075,9 +6291,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5513662196629380783}
+  - component: {fileID: 3801827963522407819}
   m_Layer: 0
   m_Name: GameObject (3)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6091,12 +6308,25 @@ Transform:
   m_GameObject: {fileID: 4284116702724553100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.3333337, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.75}
   m_Children:
   - {fileID: 6056054824705923257}
   m_Father: {fileID: 8176336788787237047}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3801827963522407819
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4284116702724553100}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48, y: 2.8, z: 0.42}
+  m_Center: {x: 0, y: -1.43, z: 0}
 --- !u!1 &4344293033903326673
 GameObject:
   m_ObjectHideFlags: 0
@@ -6576,9 +6806,10 @@ GameObject:
   - component: {fileID: 8991643225164419934}
   - component: {fileID: 6569710165517002644}
   - component: {fileID: 5543325549399341843}
+  - component: {fileID: 6178607467088576872}
   m_Layer: 0
   m_Name: Espada_Animada
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6667,6 +6898,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &6178607467088576872
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4624265420403525185}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 1, z: 0.035}
+  m_Center: {x: -0.000000230968, y: 0.5625301, z: 0}
 --- !u!1 &4668579753149787198
 GameObject:
   m_ObjectHideFlags: 0
@@ -6679,9 +6923,10 @@ GameObject:
   - component: {fileID: 8948137567038847265}
   - component: {fileID: 6614341981239594475}
   - component: {fileID: 5479554035476320620}
+  - component: {fileID: 730106472139908250}
   m_Layer: 0
   m_Name: Espada_Animada (2)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6770,6 +7015,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &730106472139908250
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4668579753149787198}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 1, z: 0.035}
+  m_Center: {x: -0.00000011175871, y: 0.5625301, z: 0}
 --- !u!1 &4680416391570770431
 GameObject:
   m_ObjectHideFlags: 0
@@ -7012,9 +7270,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4808184300631912703}
+  - component: {fileID: 8782299951302653574}
   m_Layer: 0
   m_Name: GameObject (7)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7028,12 +7287,25 @@ Transform:
   m_GameObject: {fileID: 4956359471501990401}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.333334, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.75}
   m_Children:
   - {fileID: 1963879954188592971}
   m_Father: {fileID: 8176336788787237047}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8782299951302653574
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4956359471501990401}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48, y: 2.8, z: 0.42}
+  m_Center: {x: 0, y: -1.43, z: 0}
 --- !u!1 &4961553551224718958
 GameObject:
   m_ObjectHideFlags: 0
@@ -7090,9 +7362,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7778283790014062820}
+  - component: {fileID: 7911304148536094697}
   m_Layer: 0
   m_Name: GameObject (8)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7106,12 +7379,25 @@ Transform:
   m_GameObject: {fileID: 4977143144126402126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.00000023841858, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.75}
   m_Children:
   - {fileID: 7130980340627673135}
   m_Father: {fileID: 8176336788787237047}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7911304148536094697
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4977143144126402126}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48, y: 2.8, z: 0.42}
+  m_Center: {x: 0, y: -1.43, z: 0}
 --- !u!1 &4980336779670885042
 GameObject:
   m_ObjectHideFlags: 0
@@ -8377,9 +8663,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5276549296204358124}
+  - component: {fileID: 923667127966862236}
   m_Layer: 0
   m_Name: GameObject (2)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8393,12 +8680,25 @@ Transform:
   m_GameObject: {fileID: 5714211860029558313}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.666667, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.75}
   m_Children:
   - {fileID: 5440893847127373444}
   m_Father: {fileID: 8176336788787237047}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &923667127966862236
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5714211860029558313}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48, y: 2.8, z: 0.42}
+  m_Center: {x: 0, y: -1.43, z: 0}
 --- !u!1 &5789018987948780565
 GameObject:
   m_ObjectHideFlags: 0
@@ -8458,9 +8758,10 @@ GameObject:
   - component: {fileID: 7892302912290009177}
   - component: {fileID: 5360375264524321939}
   - component: {fileID: 6747084138523777044}
+  - component: {fileID: 116499267752413855}
   m_Layer: 0
   m_Name: Espada_Animada (5)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8549,6 +8850,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &116499267752413855
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5864562575276827974}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 1, z: 0.035}
+  m_Center: {x: 0.00000012665987, y: 0.5625301, z: 0}
 --- !u!1 &5955496986371534758
 GameObject:
   m_ObjectHideFlags: 0
@@ -9854,9 +10168,10 @@ GameObject:
   - component: {fileID: 7180064175965345564}
   - component: {fileID: 4918002375076930518}
   - component: {fileID: 6017324479592431441}
+  - component: {fileID: 7239640146416270057}
   m_Layer: 0
   m_Name: Espada_Animada (3)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9945,6 +10260,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &7239640146416270057
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863694096357343747}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 1, z: 0.035}
+  m_Center: {x: 0.0000000074505815, y: 0.5625301, z: 0}
 --- !u!1 &6927556615559997207
 GameObject:
   m_ObjectHideFlags: 0
@@ -10018,9 +10346,10 @@ GameObject:
   - component: {fileID: 6738661318924581175}
   - component: {fileID: 8818188316814527997}
   - component: {fileID: 7899852698107269498}
+  - component: {fileID: 8194490574728150549}
   m_Layer: 0
   m_Name: Espada_Animada (4)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10109,6 +10438,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &8194490574728150549
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7016753344720235560}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 1, z: 0.035}
+  m_Center: {x: 0.000000037252903, y: 0.5625301, z: 0}
 --- !u!1 &7065725455995216034
 GameObject:
   m_ObjectHideFlags: 0
@@ -10148,9 +10490,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2159941798117347565}
+  - component: {fileID: 6265061453607703355}
   m_Layer: 0
   m_Name: GameObject (1)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10164,12 +10507,25 @@ Transform:
   m_GameObject: {fileID: 7086384042368808441}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.916667, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.75}
   m_Children:
   - {fileID: 303089398672937470}
   m_Father: {fileID: 8176336788787237047}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6265061453607703355
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086384042368808441}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48, y: 2.8, z: 0.42}
+  m_Center: {x: 0, y: -1.43, z: 0}
 --- !u!1 &7273345853622407967
 GameObject:
   m_ObjectHideFlags: 0
@@ -10855,9 +11211,10 @@ GameObject:
   - component: {fileID: 6150104287589900170}
   - component: {fileID: 8267896476264819520}
   - component: {fileID: 7312981217561114567}
+  - component: {fileID: 5393312741720205979}
   m_Layer: 0
   m_Name: Espada_Animada (8)
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10946,6 +11303,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &5393312741720205979
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7619391804333902485}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15, y: 1, z: 0.035}
+  m_Center: {x: 0.0000000074505815, y: 0.5625301, z: 0}
 --- !u!1 &7741059366249374628
 GameObject:
   m_ObjectHideFlags: 0
@@ -11876,9 +12246,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5487131409543445750}
+  - component: {fileID: 8221067653530605530}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11892,12 +12263,25 @@ Transform:
   m_GameObject: {fileID: 8928538886239214926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -13.333334, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.75}
   m_Children:
   - {fileID: 5433417350029647099}
   m_Father: {fileID: 8176336788787237047}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8221067653530605530
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8928538886239214926}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48, y: 2.8, z: 0.42}
+  m_Center: {x: 0, y: -1.43, z: 0}
 --- !u!1 &8941120730754997795
 GameObject:
   m_ObjectHideFlags: 0

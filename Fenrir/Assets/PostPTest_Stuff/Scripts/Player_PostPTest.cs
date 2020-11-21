@@ -453,67 +453,67 @@ public class Player_PostPTest : MonoBehaviour
         audioSource.PlayOneShot(clips[7]);
         switch (prize.type)
         {
-            case CollectablePrize.Type.LifeOrbs:
+            case CollectablePrize.Type.Vida:
                 switch (prize.size)
                 {
-                    case CollectablePrize.Size.Small:
+                    case CollectablePrize.Size.P:
                         StartCoroutine(ItemEffectDebug_UI("LifePotionSmall: +2 HP"));
                         UpdateLifePoints(2);
                         break;
 
-                    case CollectablePrize.Size.Medium:
+                    case CollectablePrize.Size.M:
                         StartCoroutine(ItemEffectDebug_UI("LifePotionMedium: +4 HP"));
                         UpdateLifePoints(4);
                         break;
 
-                    case CollectablePrize.Size.Big:
+                    case CollectablePrize.Size.G:
                         StartCoroutine(ItemEffectDebug_UI("LifePotionBig: +6 HP"));
                         UpdateLifePoints(6);
                         break;
                 }
                 break;
 
-            case CollectablePrize.Type.FuryOrbs:
+            case CollectablePrize.Type.Fúria:
                 switch (prize.size)
                 {
-                    case CollectablePrize.Size.Small:
+                    case CollectablePrize.Size.P:
                         StartCoroutine(ItemEffectDebug_UI("FuryPotionSmall: +10 Fury"));
                         UpdateFuryCurrency(10);
                         break;
 
-                    case CollectablePrize.Size.Medium:
+                    case CollectablePrize.Size.M:
                         StartCoroutine(ItemEffectDebug_UI("FuryPotionMedium: +15 Fury"));
                         UpdateFuryCurrency(15);
                         break;
 
-                    case CollectablePrize.Size.Big:
+                    case CollectablePrize.Size.G:
                         StartCoroutine(ItemEffectDebug_UI("FuryPotionBig: +20 Fury"));
                         UpdateFuryCurrency(20);
                         break;
                 }
                 break;
 
-            case CollectablePrize.Type.CrystalBag:
+            case CollectablePrize.Type.Minério:
                 switch (prize.size)
                 {
-                    case CollectablePrize.Size.Small:
+                    case CollectablePrize.Size.P:
                         StartCoroutine(ItemEffectDebug_UI("CrystalBagSmall: +5 Crystals"));
                         UpdateCrystalCurrency(5);
                         break;
 
-                    case CollectablePrize.Size.Medium:
+                    case CollectablePrize.Size.M:
                         StartCoroutine(ItemEffectDebug_UI("CrystalBagSmall: +10 Crystals"));
                         UpdateCrystalCurrency(10);
                         break;
 
-                    case CollectablePrize.Size.Big:
+                    case CollectablePrize.Size.G:
                         StartCoroutine(ItemEffectDebug_UI("CrystalBagSmall: +15 Crystals"));
                         UpdateCrystalCurrency(15);
                         break;
                 }
                 break;
 
-            case CollectablePrize.Type.LifeRune:
+            case CollectablePrize.Type._Vida:
                 StartCoroutine(ItemEffectDebug_UI("LifeRune: MaxLife 10 -> 16"));
                 totalLifePoints += 6;
                 lifeBarBGRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, totalLifePoints * 40);
@@ -522,14 +522,14 @@ public class Player_PostPTest : MonoBehaviour
                 lifeRune.SetActive(true);
                 break;
 
-            case CollectablePrize.Type.FuryRune: //damage
+            case CollectablePrize.Type.Runa_Fúria: //damage
                 StartCoroutine(ItemEffectDebug_UI("FuryRune: Damage x2"));
                 normalDamageValue += 2;
                 strongDamageValue += 3;
                 furyRune.SetActive(true);
                 break;
 
-            case CollectablePrize.Type.CourageRune: //defense
+            case CollectablePrize.Type.Runa_Coragem: //defense
                 StartCoroutine(ItemEffectDebug_UI("CourageRune: Defense x2"));
                 defenseValue = 2.5f;
                 courageRune.SetActive(true);
